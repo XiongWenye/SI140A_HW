@@ -504,50 +504,46 @@ $$
 \left\{\begin{array}{c}n \\ k\end{array}\right\} = \frac{1}{k!} \sum_{j=0}^{k} (-1)^{k-j} \left(\begin{array}{c}k \\ j\end{array}\right) j^n.
 $$
 This can be proved by the principle of inclusion-exclusion: the number of ways to partition $n$ different objects into $k$ non-empty subsets is the number of ways to partition $n$ different objects into $k$ subsets minus the number of ways to partition $n$ different objects into $k-1$ subsets, plus the number of ways to partition $n$ different objects into $k-2$ subsets, and so on.\\
-However, in actual programming, this formula is still too difficult to calculate. So I decided to use the Monte Carlo method to simulate the process of buying $n$ boxes and collecting all 108 types of coupons. The code is as follows:
+So in general, the probability that buying $n$ boxes can collect all 108 types of coupons is
+$$
+\sum_{i=0}^{108} (-1)^{108-i} \left(\begin{array}{c}108 \\ j\end{array}\right) {(\frac{i}{108})}^n
+$$
+We can write a Python program to calculate the minimum number of $n$ when such probability is no less than $95 \%$ according to the formula above.
 \begin{lstlisting}
-    import random
-    import numpy as np
-    import matplotlib.pyplot as plt
+import numpy as np
+import math
+import matplotlib.pyplot as plt
 
-    def simulate_coupon_collection(n, m, iterations=1000):
-        success_count = 0
-        for i in range(iterations):
-            collected_coupons = set()
-            for j in range(n):
-                coupon = random.randint(1, m)
-                collected_coupons.add(coupon)
-            if len(collected_coupons) == m:
-                success_count += 1
+def coupon(n):
+    sum = 0
+    for i in range(109):
+        sum += (-1)**(108-i) * math.comb(108, i) * (i/108)**n
+    return sum
 
-        probability = (success_count / iterations) * 100
-        return probability
+x = np.linspace(200, 1000, 1000)
+y = [coupon(n) for n in x]
 
-    # Parameters
-    m = 108  # Number of coupon types
-    iterations = 1000  # Number of simulation iterations
+plt.plot(x, y)
+plt.xlabel('n')
+plt.ylabel('Probability of getting all 108 coupons')
+plt.title('Coupon Collector Problem')
 
-    # Run the simulation
-    target = 0
-    for n in range(200, 1000, 10):
-        probability = simulate_coupon_collection(n, m, iterations)
-        if probability >= 95 and target == 0:
-            target = n
-        print(f"Probability of collecting all {m} coupons after {n} trials: {probability:.2f}%")
-        plt.scatter(n, probability, color='blue')
-    plt.axhline(y=95, color='r', linestyle='-')
-    plt.xlabel("Number of Trials")
-    plt.ylabel("Probability (%)")
-    plt.title("Coupon Collection Simulation")
-    plt.text(200, 95, f"First reach probability 95%: {target}", color='red')
-    plt.show()
+plt.axhline(y=0.95, color='r', linestyle='--')
+plt.text(200, 0.95, '95%', color='r')
+
+for i in range(200, 1000):
+    if coupon(i) >= 0.95:
+        plt.text(i, 0.95, str(i))
+        plt.axvline(x=i, color='r', linestyle='--')
+        break
+
+plt.show()
 \end{lstlisting}
-The plot is as follows:
+The graph is shown below:
 \begin{center}
-    \includegraphics[width=0.8\textwidth]{Coupon Collection Simulation.png}
+    \includegraphics[width=0.8\textwidth]{Coupon Collector Problem.png}
 \end{center}
-From the plot, we can see that the probability of collecting all 108 coupons increases with the number of trials. When the number of trials is around 840, the probability reaches 95\%. 
-Note that this is just a simple and rough simulation. The actual number of trials may be different due to the randomness of the simulation. But according to the plot, we can conclude that the minimum number of $n$ when such probability is no less than $95 \%$ is around 840.
+From the graph, we know that with the increasing value of $n$, the probability of getting all 108 coupons increases in a 'S' shape. And we can see that the minimum number of $n$ when such probability is no less than $95 \%$ is 823.
 
 \end{homeworkProblem}
 

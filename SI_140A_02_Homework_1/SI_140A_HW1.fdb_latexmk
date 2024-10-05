@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1728024340 "/repositories/ShanghaiTech/SI140 2024fall/SI_140A_02_Homework_1/SI_140A_HW1.tex" "SI_140A_HW1.pdf" "SI_140A_HW1" 1728024341
+["pdflatex"] 1728045552 "/repositories/ShanghaiTech/SI140 2024fall/SI_140A_02_Homework_1/SI_140A_HW1.tex" "SI_140A_HW1.pdf" "SI_140A_HW1" 1728045553
   "/etc/texmf/web2c/texmf.cnf" 1695874764 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/repositories/ShanghaiTech/SI140 2024fall/SI_140A_02_Homework_1/SI_140A_HW1.tex" 1728024340 29197 89e7f657087b5a6b5f0053e4c37baf5d ""
+  "/repositories/ShanghaiTech/SI140 2024fall/SI_140A_02_Homework_1/SI_140A_HW1.tex" 1728045551 28455 dee6623bd8be745d3baa43a357ee0b01 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1136768653 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/tcsl1000.tfm" 1136768653 2048 a8aba69db6408d13e538fd9460e7894d ""
@@ -119,7 +119,6 @@
   "/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty" 1636758526 2444 926f379cc60fcf0c6e3fee2223b4370d ""
   "/usr/share/texlive/texmf-dist/tex/latex/base/article.cls" 1636758526 20144 8a7de377ae7a11ee924a7499611f5a9d ""
   "/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty" 1622581934 5157 f308c7c04889e16c588e78aa42599fae ""
-  "/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd" 1622581934 2469 ed49302eacbaebdd899d39dedcd25393 ""
   "/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo" 1636758526 8448 96f18c76bf608a36ee6fbf021ac1dd32 ""
   "/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty" 1579991033 13886 d1306dcf79a944f6988e688c1785f9ce ""
   "/usr/share/texlive/texmf-dist/tex/latex/fancyhdr/extramarks.sty" 1612734021 3131 63fa3429cc10864383493f8b120bce11 ""
@@ -164,9 +163,9 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1727681079 4374974 07802689376a73e6b7a5ed8c4066397b ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1727681145 2798180 9e2088d599bcb60aff25b39104aa1b3d ""
-  "Coupon Collection Simulation.png" 1728023105 25584 c64940a062caf9751e3b569b0468f8bd ""
-  "SI_140A_HW1.aux" 1728024341 1031 5d1adf30f7142eff70af66cccff1c26c "pdflatex"
-  "SI_140A_HW1.tex" 1728024340 29197 89e7f657087b5a6b5f0053e4c37baf5d ""
+  "Coupon Collector Problem.png" 1728045109 29641 dd19a948aba295d8af8ed73a55f3a2d7 ""
+  "SI_140A_HW1.aux" 1728045553 1031 3b1ab41dcff1aeaca0f82591c5106d26 "pdflatex"
+  "SI_140A_HW1.tex" 1728045551 28455 dee6623bd8be745d3baa43a357ee0b01 ""
   (generated)
   "SI_140A_HW1.aux"
   "SI_140A_HW1.log"
