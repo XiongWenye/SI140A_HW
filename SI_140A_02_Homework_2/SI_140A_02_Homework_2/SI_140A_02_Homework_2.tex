@@ -1,0 +1,304 @@
+% !TeX TS-program = pdflatex
+
+
+\documentclass[a4paper]{article}
+
+% \usepackage[default]{fontsetup}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{tikz}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%  
+
+\topmargin=-0.2in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.5in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+		\node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Class
+%   - Due date
+%   - Name
+%   - Student ID
+
+\newcommand{\hmwkTitle}{Homework\ \#02}
+\newcommand{\hmwkClass}{Probability \& Statistics for EECS}
+\newcommand{\hmwkDueDate}{2024-10-15}
+\newcommand{\hmwkAuthorName}{Wenye Xiong}
+\newcommand{\hmwkAuthorID}{2023533141}
+
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\\  \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59}\\
+	\vspace{4in}
+}
+
+\author{
+	Name: \textbf{\hmwkAuthorName} \\
+	Student ID: \hmwkAuthorID}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+
+% \maketitle
+% \thispagestyle{empty}
+% \pagebreak
+
+\date{
+Due on Oct. 15, 2024, 11:59 UTC+8}
+\title{SI 140A-02  Probability \& Statistics for EECS, Fall 2024 \\
+Homework 2}
+\maketitle
+Read all the instructions below carefully before you start working on the assignment, and before you make a submission.
+\begin{itemize}
+    \item You are required to write down all the major steps towards making your conclusions; otherwise you may obtain limited points of the problem.
+    \item Write your homework in English; otherwise you will get no points of this homework.
+    \item Any form of plagiarism will lead to $0$ point of this homework. 
+\end{itemize}
+\newpage
+
+\begin{homeworkProblem}[1]
+Alice is trying to communicate with Bob, by sending a message (encoded in binary)
+across a channel. If she sends a 0, there is a 5\% chance of an error occurring, resulting in
+Bob receiving a 1; if she sends a 1, there is a 10\% chance of an error occurring,
+resulting in Bob receiving a 0. To reduce the chance of miscommunication, Alice and Bob decide to use a repetition code. Again Alice wants to convey a 0 or a 1, but this time she repeats it
+two more times, so that she sends 000 to convey 0 and 111 to convey 1. Bob will
+decode the message by going with what the majority of the bits were. Assume error events for different bits are independent of each other. Given that Bob receives 110, what is the probability that Alice intended to convey a 1?\\
+
+\subsection{Solution}
+Before we use the Bayes' theorem to solve this problem, we need to have a prior probability of Alice's intention. Since Alice has an equal chance of sending 0 or 1, we have $P(A_0) = P(A_1) = 0.5$. Let $A_i$ be the event that Alice sends $i$ for $i \in \{0, 1\}$, and $B_j$ be the event that Bob receives $j$ for $j \in \{0, 1\}$, $B_{j,k,l}$ be the event that Bob receives $jkl$ for $j, k, l \in \{0, 1\}$. According to Bayes' theorem, we have the following formula:
+\begin{center}
+    $P(A_{1}|B_{110})  = \frac{P(A_{1})P(B_{110}|A_{1})}{P(A_{1})P(B_{110}|A_{1}) + P(A_{0})P(B_{110}|A_{0})} = \frac{0.5 * 0.9^{2} * 0.1}{0.5 * 0.9^{2} * 0.1 + 0.5 * 0.05^{2} * 0.95} = 0.97 $
+\end{center}
+
+
+\end{homeworkProblem}
+
+\newpage
+\begin{homeworkProblem}[2]
+To battle against spam, Bob installs two anti-spam programs. An email arrives, which is either legitimate (event $L$) or spam (event $L^c$), and which program $j$ marks as legitimate (event $M_j$) or marks as spam (event $M^c_j$) for $j \in \{1, 2\}$. Assume that $10\%$ of Bobs email is legitimate and that the two programs are each “$90\%$ accurate” in the sense that $ P(M_j |L) = P(M^c_j |L^c) = 9/10$. Also assume that given whether an email is spam, the two programs’ outputs are conditionally independent.
+\begin{enumerate} [(a)]
+    \item Find the probability that the email is legitimate, given that the 1st program marks it as legitimate (simplify).
+    \item Find the probability that the email is legitimate, given that both programs mark it as legitimate (simplify).
+    \item Bob runs the 1st program and $M_1$ occurs. He updates his probabilities and then runs the 2nd program. Let $\Tilde{P}(A) = P(A|M_1)$ be the updated probability function after running the 1st program. Explain briefly in words whether or not $\Tilde{P}(L|M_2) = P(L|M_1 \cap M_2)$: is conditioning on $M_1 \cap M_2$ in one step equivalent to first conditioning on $M_1$, then updating probabilities, and then conditioning on $M_2$?
+\end{enumerate}
+\subsection{Solution}
+(a):\\
+According to the Bayes' theorem, we have the following formula:
+\begin{center}
+    $P(L|M_1) = \frac{P(L)P(M_1|L)}{P(L)P(M_1|L) + P(L^c)P(M_1|L^c)} = \frac{0.1 * 0.9}{0.1 * 0.9 + 0.9 * 0.1} = 0.5$
+\end{center}
+(b):\\
+According to the Bayes' theorem, we have the following formula:
+\begin{center}
+    $P(L|M_1 \cap M_2) = \frac{P(L)P(M_1|L)P(M_2|L)}{P(L)P(M_1|L)P(M_2|L) + P(L^c)P(M_1|L^c)P(M_2|L^c)} = \frac{0.1 * 0.9^{2}}{0.1 * 0.9^{2} + 0.9 * 0.1^{2}} = 0.9$
+\end{center}
+(c):\\
+Yes, $\Tilde{P}(L|M_2) = P(L|M_1 \cap M_2)$, because the \textbf{Coherency of Bayes' rule} and the two programs’ outputs are conditionally independent given whether an email is spam. So conditioning on $M_1 \cap M_2$ in one step is equivalent to first conditioning on $M_1$, then updating probabilities, and then conditioning on $M_2$. According to the Bayes' theorem, the order of various conditions does not affect the final result.
+\end{homeworkProblem}
+
+
+
+\newpage
+\begin{homeworkProblem}[3]
+Fred decides to take a series of $n$ tests, to diagnose whether he has a certain disease (any individual test is not perfectly reliable, so he hopes to reduce his uncertainty by taking multiple tests).
+Let $D$ be the event that he has the disease, $ p = P(D) $ be the prior probability that he has the disease, and $ q = 1 - p $.
+Let $T_{j}$ be the event that he tests positive on the $j$th test.
+\begin{enumerate}[(a)]
+	\item Assume for this part that the test results are conditionally independent given Fred's disease status. Let $a=P\left(T_{j} \mid D\right)$ and $b=P\left(T_{j} \mid D^{c}\right)$, where $a$ and $b$ don't depend on the $j$th test.
+	Find the posterior probability that Fred has the disease, given that he tests positive on all $n$ of the $n$ tests.
+	\item Suppose that Fred tests positive on all $n$ tests. However, some people have a certain gene that makes them always test positive. Let $G$ be the event that Fred has the gene. Assume that $P(G)=1 / 2$ and that $D$ and $G$ are independent. If Fred does not have the gene, then the test results are conditionally independent given his disease status. Let $a_{0}=P\left(T_{j} \mid D, G^{c}\right)$ and $b_{0}=P\left(T_{j} \mid D^{c}, G^{c}\right)$, where $a_{0}$ and $b_{0}$ don't depend on $j .$ Find the posterior probability that Fred has the disease, given that he tests positive on all $n$ of the tests.
+\end{enumerate}
+\subsection{Solution}
+(a):\\
+Let $T = T_{1} \cap T_{2} \cap \cdots \cap T_{n}$ be the event that Fred tests positive on all $n$ tests. According to the Bayes' theorem, we have the following formula:
+\begin{center}
+    $P(D|T) = \frac{P(D)P(T|D)}{P(D)P(T|D) + P(D^{c})P(T|D^{c})} = \frac{p a^{n}}{p a^{n} + q b^{n}}$
+\end{center}
+(b):\\
+This time we have to consider whether Fred has the gene, so we add the gene event $G$ to the formula and update the value of $P(T|D)$ and $P(T|D^{c})$.
+\begin{center}
+    $P(T|D) = P(T|D, G)P(G|D) + P(T|D, G^{c})P(G^{c}|D) = \frac{1}{2} + \frac{1}{2}a_{0}^{n}$\\
+    $P(T|D^{c}) = P(T|D^{c}, G)P(G|D^{c}) + P(T|D^{c}, G^{c})P(G^{c}|D^{c}) = \frac{1}{2} + \frac{1}{2}b_{0}^{n}$
+\end{center}
+And according to the Bayes' theorem, we have the following formula:
+\begin{center}
+    $P(D|T) = \frac{P(D)P(T|D)}{P(D)P(T|D) + P(D^{c})P(T|D^{c})} = \frac{p \left(\frac{1}{2} + \frac{1}{2}a_{0}^{n}\right)}{p \left(\frac{1}{2} + \frac{1}{2}a_{0}^{n}\right) + q \left(\frac{1}{2} + \frac{1}{2}b_{0}^{n}\right)} = \frac{p + pa_{0}^{n}}{p + pa_{0}^{n} + q + qb_{0}^{n}} = \frac{p + pa_{0}^{n}}{1 + pa_{0}^{n} + qb_{0}^{n}}$\\
+\end{center}
+\end{homeworkProblem}
+
+\newpage
+\begin{homeworkProblem}[4]
+We want to design a spam filter for email. A major strategy is to find phrases that are
+much more likely to appear in a spam email than in a no spam email. In that exercise,we only consider one such phrase:“free money”. More realistically, suppose that we
+have created a list of 100 words or phrases that are much more likely to be used in
+spam than in non-spam. Let $W_j$ be the event that an email contains the $j$th word or
+phrase on the list. Let
+$$
+p = P(spam), p_j = P(W_j |spam), r_j = P(W_j |not \quad spam)
+$$
+where “spam” is shorthand for the event that the email is spam.\\
+Assume that $W_1, ..., W_{100}$ are conditionally independent given that the email is spam,
+and also conditionally independent given that it is not spam. A method for classifying
+emails (or other objects) based on this kind of assumption is called a naive Bayes
+classifier. (Here “naive” refers to the fact that the conditional independence is a strong
+assumption, not to Bayes being naive. The assumption may or may not be realistic,
+but naive Bayes classifiers sometimes work well in practice even if the assumption is
+not realistic.)\\
+Under this assumption we know, for example, that
+$$
+P(W_1, W_2, W^c_3 , W^c_4 , ..., W^c_{100}|spam) = p_1p_2(1-p_3)(1 - p_4)...(1 - p_{100}).
+$$
+Without the naive Bayes assumption, there would be vastly more statistical and computational difficulties since we would need to consider $2^{100} \approx 1.3 \times 10^{30}$ events of the form $ A1 \cap A2... \cap A100$ with each $A_j$ equal to either $W_j$ or $ W^c_j$ . A new email has just arrived, and it include the 23rd, 64th, and 65th words or phrases on the list (but not the other 97). So we want to compute
+$$
+P(spam|W^c_1 , ..., W^c_{22}, W_{23}, W^c_{24}, ..., W^c_{63}, W_{64}, W_{65}, W^c_{66}, ..., W^c_{100}).
+$$
+Note that we need to condition on all the evidence, not just the fact that $W_{23} \cap W_{64} \cap W_{65}$ occurred. Find the condition probability that the new email is spam (in terms of $p$ and the $p_j$ and $r_j$).\\
+\subsection{Solution}
+Let $W = W_{1}^{c} \cap W_{2}^{c} \cap \cdots \cap W_{22}^{c} \cap W_{23} \cap W_{24}^{c} \cap \cdots \cap W_{63}^{c} \cap W_{64} \cap W_{65} \cap W_{66}^{c} \cap \cdots \cap W_{100}^{c}$ be the event that the new email includes the 23rd, 64th, and 65th words or phrases on the list. According to the Bayes' theorem and LOTP, we have the following formula:
+\begin{center}
+    $P(spam|W) = \frac{P(spam)P(W|spam)}{P(spam)P(W|spam) + P(not \quad spam)P(W|not \quad spam)} = $\\
+    $ \frac{p (1-p_1) (1-p_2) \dots (1-p_{22}) p_{23} (1-p_{24}) \dots (1-p_{63}) p_{64} p_{65} (1-p_{66}) \dots (1-p_{100})}{p (1-p_1) (1-p_2) \dots (1-p_{22}) p_{23} (1-p_{24}) \dots (1-p_{63}) p_{64} p_{65} (1-p_{66}) \dots (1-p_{100}) + (1-p) (1-r_1) (1-r_2) \dots (1-r_{22}) r_{23} (1-r_{24}) \dots (1-r_{63}) r_{64} r_{65} (1-r_{66}) \dots (1-r_{100})}$
+\end{center}
+\end{homeworkProblem}
+
+\newpage
+\begin{homeworkProblem}[5]
+Consider a family that has $n$ children, and $n \geq 2$. We are interested in the children’s
+genders, where each child can be a Boy or a girl with equal probability.
+\begin{enumerate}[(a)]
+    \item What is the probability that all children are girls given that the first (elder) child is a girl?
+    \item We ask the father: "Do you have at least one daughter?" He responds "Yes!" Given this extra information, what is the probability that all children are girls? In other words, what is the probability that all children are girls given that we know at least one of them is a girl?
+    \item If we randomly ran into one child in the shopping mall, and see that she is a girl. Given this extra information, what is the probability that all children are girls?
+    \item We ask the father, ”Do you have at least one daughter named Catherine?” He replies, ”Yes!” What is the probability that all children are girls? In other words, we want to find the probability that all children are girls, given that the family has at least one daughter named Catherine. Here we assume that if a child is a girl, her name will be Catherine with probability $\alpha$ independently from other children’s names. If the child is a boy, his name will not be Catherine.
+\end{enumerate}
+\subsection{Solution}
+(a):\\
+Consider the event that all children are girls and the first child is a girl. This event is equivalent to the event that all children are girls, thus the probability is $\frac{1}{2^{n}}$. Then consider the probability that the first child is a girl, which is $\frac{1}{2}$. According to the conditional probability formula, we have the following formula:
+\begin{center}
+    $P(\text{all girls}|\text{first girl}) = \frac{P(\text{all girls, first girl})}{P(\text{first girl})} = \frac{1/2^{n}}{1/2} = \frac{1}{2^{n-1}}$
+\end{center}
+(b):\\
+Consider the event that all children are girls and the family has at least one daughter. This event is equivalent to the event that all children are girls, thus the probability is $\frac{1}{2^{n}}$. Then consider the probability that the family has at least one daughter, which is the complement of the event that all children are boys, thus the probability is $1 - \frac{1}{2^{n}}$. According to the conditional probability formula, we have the following formula:
+\begin{center}
+    $P(\text{all girls}|\text{at least one girl}) = \frac{P(\text{all girls, at least one girl})}{P(\text{at least one girl})} = \frac{1/2^{n}}{1 - 1/2^{n}} = \frac{1}{2^{n} - 1}$
+\end{center}
+(c):\\
+We now reconsider the problem a, we can easily find that if the extra information is a random child is a girl, the probability stays the same. Now we consider the case that we choose a random child and know she is girl, this is exactly the same as the case that we ran into a random child in the shopping mall and see that she is a girl. Thus the probability is $\frac{1}{2^{n-1}}$.\\
+(d):\\
+Consider the event that all children are girls and we has a child called Catherine. Having all girls has a probability of $\frac{1}{2^{n}}$. The probability that we have a child called Catherine when all children are girls is $1 - (1 - \alpha)^{n}$, which is the complement of the event that all girls are not named Catherine. Thus the probability of these two events happening together is $(1 - (1 - \alpha)^{n})/2^{n}$.\\
+Next, we consider the probability that we have a child called Catherine, which is the complement of the event that all children are not named Catherine. The probability of a single child being named Catherine is the result of the probability that the child is girl times the probability that the girl is named Catherine, which is $\frac{1}{2} * \alpha$. Thus the probability is $1 - (1 - \frac{1}{2}\alpha)^{n}$. According to the conditional probability formula, we have the following formula: 
+\begin{center}
+    $P(\text{all girls}|\text{one Catherine}) = \frac{P(\text{all girls, one Catherine})}{P(\text{one Catherine})} = \frac{(1 - (1 - \alpha)^n)/2^{n}}{1-(1-\frac{1}{2}\alpha)^n} = \frac{1 - (1 - \alpha)^n}{2^{n} - (2-\alpha)^n}$
+\end{center}
+\end{homeworkProblem}
+
+
+
+
+
+\end{document}
