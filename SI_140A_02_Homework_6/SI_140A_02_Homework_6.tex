@@ -1,0 +1,321 @@
+% !TeX TS-program = pdflatex
+
+
+\documentclass[a4paper]{article}
+
+% \usepackage[default]{fontsetup}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{tikz}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%  
+
+\topmargin=-0.2in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.5in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+		\node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Class
+%   - Due date
+%   - Name
+%   - Student ID
+
+\newcommand{\hmwkTitle}{Homework\ \#06}
+\newcommand{\hmwkClass}{Probability \& Statistics for EECS}
+\newcommand{\hmwkDueDate}{2024-11-19}
+\newcommand{\hmwkAuthorName}{Wenye Xiong}
+\newcommand{\hmwkAuthorID}{2023533141}
+
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\\  \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59}\\
+	\vspace{4in}
+}
+
+\author{
+	Name: \textbf{\hmwkAuthorName} \\
+	Student ID: \hmwkAuthorID}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+
+% \maketitle
+% \thispagestyle{empty}
+% \pagebreak
+
+\date{
+Due on Nov. 19, 2024, 11:59 UTC+8}
+\title{SI 140A-02  Probability \& Statistics for EECS, Fall 2024 \\
+Homework 6}
+\maketitle
+Read all the instructions below carefully before you start working on the assignment, and before you make a submission.
+\begin{itemize}
+    \item You are required to write down all the major steps towards making your conclusions; otherwise you may obtain limited points of the problem.
+    \item Write your homework in English; otherwise you will get no points of this homework.
+    \item Any form of plagiarism will lead to $0$ point of this homework. 
+\end{itemize}
+\newpage
+
+\begin{homeworkProblem}[1]
+Suppose a fair coin is tossed repeatedly, and we obtain a sequence of H and T(H denotes Head and T denotes Tail). Let N denote the number of tosses to observe the first occurrence of the pattern “HH”. Find the PMF of N.
+\end{homeworkProblem}
+\subsection{Solution}
+For $k \geq 3$ let N denote the need steps to find the first HH , $p_k=p(N=k)$ , by using the first step method , if first coin is T , will find HH in the rest k-1 coins , the Probability is $\frac{1}{2}p_{k-1}$ for this condition because it is a fair coin .
+\\ If the first step is H , the second step must be T , so the Probability for this condition is $\frac{1}{4}p_{k-2}$ , so we will have the equation
+$p_k = \frac{1}{2}p_{k-1}+\frac{1}{4}p_{k-2}$ solve this difference equation , by $p_1 = 0 , p_2 = \frac{1}{4} , p_3 = \frac{1}{8}$ , we will find 
+\begin{center}
+    $p(N = k) = \frac{5+\sqrt{5}}{40}(\frac{\sqrt{5}+1}{4})^{k-2} - \frac{\sqrt{5}}{10}(-\frac{\sqrt{5}-1}{4})^{k-1}$
+\end{center}
+
+\newpage
+
+\begin{homeworkProblem}[2]
+The Cauchy distribution has PDF
+$$
+f(x)=\frac{1}{\pi\left(1+x^{2}\right)}
+$$
+
+for all $x$. Find the CDF of a random variable with the Cauchy PDF. Hint: Recall that the derivative of the inverse tangent function $\tan ^{-1}(x)$ is $\frac{1}{1+x^{2}}$.
+\subsection{Solution}
+The CDF of a Cauchy is F given by
+\begin{center}
+    $F(t) = \int_{-\infty}^{t} \frac{1}{\pi(1+x^{2})}dx = \frac{1}{\pi} \int_{-\infty}^{t} \frac{1}{1+x^{2}}dx = \frac{1}{\pi} \tan^{-1}(x) \Big|_{-\infty}^{t} = \frac{1}{\pi} \tan^{-1}(t) + \frac{1}{2}$
+\end{center}
+\end{homeworkProblem}
+
+\newpage
+\begin{homeworkProblem}[3]
+The Pareto distribution with parameter $a>0$ has PDF
+
+$$
+f(x)=\frac{a}{x^{a+1}}
+$$
+
+for $x \geq 1$ (and 0 otherwise). This distribution is often used in statistical modeling. Find the CDF of a Pareto r.v. with parameter $a$; check that it is a valid CDF.
+\subsection{Solution}
+The CDF of a Pareto is F given by
+\begin{center}
+    $F(t) = \int_{1}^{t} \frac{a}{x^{a+1}}dx = (-t^{-a}) \Big|_{1}^{t} = 1 - \frac{1}{t^{a}}$\\
+\end{center}
+For all $t \geq 1$, $F(t) = 1 - \frac{1}{t^{a}} \geq 0$. This is a valid CDF since it is increasing in y (this
+can be seen directly or from the fact that F
+0 = f is nonnegative), right continuous (in
+fact it is continuous), and has limit 0 as x approaches negative infinity and limit 1 as x approaches positive infinity.
+\end{homeworkProblem}
+
+\newpage
+\begin{homeworkProblem}[4]
+The \textit{Beta distribution} with parameters $a=3, b=2$ has PDF
+
+$$
+f(x)=12 x^{2}(1-x) \text {, for } 0<x<1
+$$
+
+Let $X$ have this distribution.
+\begin{enumerate}
+    \item[(a)] Find the CDF of $X$.
+    \item[(b)] Find $P(0<X<1 / 2)$.
+    \item[(c)] Find the mean and variance of $X$ (without quoting results about the Beta distribution).
+\end{enumerate}
+\subsection{Solution}
+(a):\\
+The CDF of X is
+\begin{center}
+    $F(X) = \int_{0}^{x} 12t^{2}(1-t)dt = 4t^{3} - 3t^{4} \Big|_{0}^{x} = 4x^{3} - 3x^{4}$ \quad for $0<x<1$\\
+\end{center}
+(b):\\
+According to the CDF of X, we have
+\begin{center}
+    $P(0<X<1/2) = F(1/2) = \frac{5}{16}$
+\end{center}
+(c):\\
+According to PDF of X, the mean of X is
+\begin{center}
+    $E(X) = \int_{0}^{1} xf(x)dx = \int_{0}^{1} 12x^{3}(1-x)dx = \int_{0}^{1} 12x^{3}dx - \int_{0}^{1} 12x^{4}dx = \frac{3}{5}$\\
+\end{center}
+We also have:
+\begin{center}
+    $E(X^{2}) = \int_{0}^{1} x^{2}f(x)dx = \int_{0}^{1} 12x^{4}(1-x)dx = \int_{0}^{1} 12x^{4}dx - \int_{0}^{1} 12x^{5}dx = \frac{2}{5}$\\
+\end{center}
+Thus, the variance of X is
+\begin{center}
+    $Var(X) = E(X^{2}) - E(X)^{2} = \frac{2}{5} - (\frac{3}{5})^{2} = \frac{1}{25}$
+\end{center}
+\end{homeworkProblem}
+
+\newpage
+\begin{homeworkProblem}[5]
+The Exponential is the analog of the Geometric in continuous time. This problem explores the connection between Exponential and Geometric in more detail, asking what happens to a Geometric in a limit where the Bernoulli trials are performed faster and faster but with smaller and smaller success probabilities.\\
+Suppose that Bernoulli trials are being performed in continuous time; rather than only thinking about first trial, second trial, etc., imagine that the trials take place at points on a timeline. Assume that the trials are at regularly spaced times $0, \Delta t, 2 \Delta t, \ldots$, where $\Delta t$ is a small positive number. Let the probability of success of each trial be $\lambda \Delta t$, where $\lambda$ is a positive constant. Let $G$ be the number of failures before the first success (in discrete time), and $T$ be the time of the first success (in continuous time).
+\begin{enumerate}
+    \item [(a)] Find a simple equation relating $G$ to $T$. Hint: Draw a timeline and try out a simple example.
+    \item [(b)] Find the CDF of $T$. Hint: First find $P(T>t)$.
+    \item [(c)] Show that as $\Delta t \rightarrow 0$, the CDF of $T$ converges to the $\operatorname{Expo}(\lambda)$ CDF, evaluating all the CDFs at a fixed $t \geq 0$.
+\end{enumerate}
+\subsection{Solution}
+(a):\\
+$T = G\Delta t$\\
+(b):\\
+For $t > 0$, $P(T>t)$ is the probability that no success in the first $\left\lfloor \frac{t}{\Delta t} \right\rfloor$ trials, 
+\begin{center}
+    $P(T \leq t) = 1 - P(G > \frac{t}{\Delta t}) = 1 - (1-\lambda \Delta t)^{\left\lfloor \frac{t}{\Delta t} \right\rfloor + 1}$\\
+\end{center}
+(c):\\
+As $\Delta t \rightarrow 0$, we have
+\begin{center}
+    $\lim_{\Delta t \rightarrow 0} P(T \leq t) = \lim_{\Delta t \rightarrow 0} 1 - (1-\lambda \Delta t)^{\left\lfloor \frac{t}{\Delta t} \right\rfloor + 1} = 1 - e^{-\lambda t}$\\
+\end{center}
+Thus, for all $t \geq 0$, the CDF of $T$ converges to the $\operatorname{Expo}(\lambda)$ CDF as $\Delta t \rightarrow 0$.
+\end{homeworkProblem}
+
+\newpage
+\begin{homeworkProblem}[6]
+The \textit{Gumbel distribution} is the distribution of $-\log X$ with $X \sim \operatorname{Expo}(1)$.
+\begin{enumerate}
+    \item [(a)] Find the CDF of the Gumbel distribution.
+    \item [(b)] Let $X_{1}, X_{2}, \ldots$ be i.i.d. $\operatorname{Expo}(1)$ and let $M_{n}=\max \left(X_{1}, \ldots, X_{n}\right)$. Show that as $n \rightarrow \infty$, the CDF of $M_{n}-\log n$ converges to the Gumbel CDF.
+\end{enumerate}
+\subsection{Solution}
+(a):\\
+Let G be the Gumbel distribution, and $X \sim Expo(1)$. The CDF of G is
+\begin{center}
+    $F(t) = P(G \leq t) = P(-\log X \leq t) = P(X \geq e^{-t}) = e^{-e^{-t}}$\\
+\end{center}
+(b):\\
+The CDF of $M_{n}-\log n$ is
+\begin{center}
+    $P(M_{n}-\log n \leq t) = P(X_1 \leq t+\log n, X_2 \leq t+\log n, \ldots, X_n \leq t+\log n) = (1-e^{-(t+\log n)})^{n} = P(X \leq t+\log n)^{n} = (1-e^{-(t+\log n)})^{n} = (1-\frac{1}{n}e^{-t})^{n}$\\
+\end{center}
+As $n \rightarrow \infty$, we have
+\begin{center}
+    $\lim_{n \rightarrow \infty} (1-\frac{1}{n}e^{-t})^{n} = e^{-e^{-t}}$\\
+\end{center}
+
+\end{homeworkProblem}
+
+\newpage
+\begin{homeworkProblem}[7] (\textbf{Optional Challenging Problem})\\
+ Let $X \sim \mathcal{N}(0,1)$, its corresponding CDF is denoted as $\Phi$ and the corresponding PDF is denoted as $\varphi$.
+ \begin{enumerate}
+     \item [(a)]  If $x>0$, show the following inequality holds:
+        $$
+        \frac{x}{x^{2}+1} \varphi(x) \leq 1-\Phi(x) \leq \frac{1}{x} \varphi(x)
+        $$
+     \item [(b)]Define the function $g(x)$ as follows:
+        $$
+        g(x)=\frac{2}{\sqrt{\pi}} \int_{x}^{\infty} e^{-t^{2}} d t, \forall x \geq 0
+        $$  
+    Show the following inequality holds:
+        $$
+        g(x) \leq e^{-x^{2}}, \forall x \geq 0
+        $$
+\end{enumerate}
+
+\end{homeworkProblem}
+
+\end{document}

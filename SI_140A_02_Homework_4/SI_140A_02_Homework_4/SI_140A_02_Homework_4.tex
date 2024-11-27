@@ -1,0 +1,317 @@
+% !TeX TS-program = pdflatex
+
+
+\documentclass[a4paper]{article}
+
+% \usepackage[default]{fontsetup}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{tikz}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%  
+
+\topmargin=-0.2in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.5in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+		\node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Class
+%   - Due date
+%   - Name
+%   - Student ID
+
+\newcommand{\hmwkTitle}{Homework\ \#04}
+\newcommand{\hmwkClass}{Probability \& Statistics for EECS}
+\newcommand{\hmwkDueDate}{2024-10-22}
+\newcommand{\hmwkAuthorName}{Wenye Xiong}
+\newcommand{\hmwkAuthorID}{2023533141}
+
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\\  \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59}\\
+	\vspace{4in}
+}
+
+\author{
+	Name: \textbf{\hmwkAuthorName} \\
+	Student ID: \hmwkAuthorID}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+
+% \maketitle
+% \thispagestyle{empty}
+% \pagebreak
+
+\date{
+Due on Oct. 29, 2024, 11:59 UTC+8}
+\title{SI 140A-02  Probability \& Statistics for EECS, Fall 2024 \\
+Homework 4}
+\maketitle
+Read all the instructions below carefully before you start working on the assignment, and before you make a submission.
+\begin{itemize}
+    \item You are required to write down all the major steps towards making your conclusions; otherwise you may obtain limited points of the problem.
+    \item Write your homework in English; otherwise you will get no points of this homework.
+    \item Any form of plagiarism will lead to $0$ point of this homework. 
+\end{itemize}
+\newpage
+
+\begin{homeworkProblem}[1]
+Nick and Penny are independently performing independent Bernoulli trials. For concreteness, assume that Nick is flipping a nickel with probability $p_1$ of Heads and Penny is flipping a penny with probability $p_2$ of Heads. Let $X_1,X_2,\dots$ be Nick's results and $Y_1,Y_2,\dots$ be Penny's results, with $X_i\sim Bern(p_1)$ and $Y_j\sim Bern(p_2)$.\\
+(a) Find the distribution and expected value of the first time at which they are simultaneously successful, i.e., the smallest $n$ such that $X_n=Y_n=1$. \\
+Hint: Define a new sequence of Bernoulli trials and use the story of the Geometric.\\
+(b) Find the expected time until at least one has a success (including the success). \\
+Hint: Define a new sequence of Bernoulli trials and use the story of the Geometric.\\
+(c) For $p_1=p_2$, find the probability that their first successes are simultaneous, and use this to find the probability that Nick's first success precedes Penny's.\\
+
+\subsection{Solution}
+(a):\\
+Define $Z_i$, where $Z_i=1$ if $X_i=Y_i=1$ and $Z_i=0$ otherwise. \\
+Then $p(Z = k) = (1 - p_1p_2)^{k-1}p_1p_2 \sim Geom(p_1p_2)$. Thus $E[Z] = \frac{1}{p_1p_2}$.\\
+(b):\\
+Similarly, define $W_i$, where $W_i = 0$ if $X_i = Y_i = 0$ and $W_i = 1$ otherwise.\\
+Then $p(W = k) \sim Geom(1 - (1-p_1)(1-p_2))$. Thus $E[W] = \frac{1}{1 - (1-p_1)(1-p_2)} = \frac{1}{p_1 + p_2 - p_1p_2}$.\\
+(c):\\
+Let $p = p_1 = p_2$, N denotes Nick's first success and P denotes Penny's first success.\\
+Then $p(N = P) = \sum_{k=1}^{\infty} p^2((1-p)^2)^{k-1} = p^2 \sum_{k=0}^{\infty} (1-p)^{2k} = \frac{p^2}{1 - (1-p)^2} = \frac{p^2}{2p - p^2} = \frac{p}{2-p}$.\\
+According to the symmetry, $p(N < P) = p(P < N)$, 
+thus $p(N > P) = \frac{1 - \frac{p}{2-p}}{2} = \frac{1-p}{2-p}$.
+\end{homeworkProblem}
+
+\newpage
+\begin{homeworkProblem}[2]
+For $X$ and $Y$ binary digits (0 or 1), let $X \oplus Y$ be 0 if $X=Y$ and 1 if $X\neq Y$ (this operation is called exclusive or (often abbreviated to XOR), or addition mod 2).
+\begin{enumerate}[(a)]
+    \item  Let $X \sim {\rm Bern}(p)$ and $Y \sim {\rm Bern}(1/2)$, independently. What is the distribution of $X \oplus Y$?
+    \item With notation as in sub-problem (a), is $X \oplus Y$ independent of $X$?  Is $X \oplus Y$ independent of $Y$?  Be sure to consider both the case $p= 1/2$ and the case $p\neq 1/2$.
+    \item Let $X_1, ... ,X_n$ be i.i.d. (i.e., independent and identically distributed) Bern(1/2) R.V.s. For each nonempty subset $J$ of $\{1,2,...,n\}$, let
+    \begin{equation*}
+        Y_J=\oplus_{j \in J}X_j.
+    \end{equation*}
+    
+    Show that $Y_J \sim {\rm Bern}(1/2)$ and that these $2^n-1$ R.V.s are pairwise independent, but not independent.
+\end{enumerate}
+
+\subsection{Solution}
+(a):\\
+The distribution of $X \oplus Y$ is $\frac{1}{2}$, no matter what the value of $p$ is.\\
+\begin{center}
+    $P(X \oplus Y = 1) = P(X \oplus Y = 1 | X = 1)P(X = 1) + P(X \oplus Y = 1 | X = 0)P(X = 0)$\\
+    $= P(Y = 0)P(X = 1) + P(Y = 1)P(X = 0) = \frac{p}{2} + \frac{1-p}{2} = \frac{1}{2}$
+\end{center}
+(b):\\
+The conditional distribution of $X \oplus Y | (X = x)$ is $\frac{1}{2}$, as shown in (a), which is independent of X.\\
+This result and the result from (a) make sense intuitively: adding Y destroys all information about X, resulting in a fair coin flip independent of X.
+Given $X = x$, $X \oplus Y$ is x with probability $\frac{1}{2}$, and 1-x with probability $\frac{1}{2}$, so $X \oplus Y | (X = x) \sim Bern(1/2)$.\\
+
+If $p = 1/2$, the distribution formula indicates that $X \oplus Y$ is independent of $X$ and $Y$.\\
+But if $p \neq 1/2$, $X \oplus Y$ is not independent of $Y$, as the distribution of $X \oplus Y | (Y = y)$ is $Bern(p(1-y) + (1-p)y)$.\\
+\begin{center}
+    $P(X \oplus Y = 1 | Y = y) = P(X \neq y) = p(1-y) + (1-p)y$
+\end{center}
+(c):\\
+To show these $2^n-1$ R.V.s are not independent, we can consider the case where we know, for example, $Y_{\{1\}}$ and $Y_{\{2\}}$. Then we get $Y_{\{1,2\}} = Y_{\{1\}} \oplus Y_{\{2\}}$.\\
+But these $2^n-1$ R.V.s are pairwise independent, let's say we have $Y_J$ and $Y_K$, we can write them in their stated form by partioning the set $J \cup K$ into $J \cap K$ and $J \cap K^c$ and $J^c \cap K$\\
+Assume that $J \cup K$ is a nonempty set, then by (a) $A \sim Bern(1/2)$, we have the following for $y \in \{0,1\}, z \in \{0,1\}$:
+\begin{center}
+    $P(Y_J = y, Y_K = z) = \frac{1}{2} P(A \oplus B = y, A \oplus C = z | A = 1) + \frac{1}{2} P(A \oplus B = y, A \oplus C = z | A = 0)$\\
+    $= \frac{1}{2} P(B = y, C = z) + \frac{1}{2} P(B \neq y, C \neq z) = \frac{1}{2} \frac{1}{4} + \frac{1}{2} \frac{1}{4} = \frac{1}{4}$\\
+    $= P(Y_J = y)P(Y_K = z)$
+\end{center}
+If $J \cup K$ is an empty set, then obviously $Y_J = B$ and $Y_K = C$ are independent.\\
+Thus these $2^n-1$ R.V.s are pairwise independent.
+\end{homeworkProblem}
+
+
+
+\newpage
+\begin{homeworkProblem}[3]
+Let a random variable $X$ satisfies Hypergeometric distribution with parameters $w, b, n$.
+\begin{enumerate}[(a)]
+    \item Find $E\left[ \left(\begin{array}{l}
+X \\
+2
+\end{array}\right) \right]$
+
+    \item Use the result of (a) to find the variance of $X$.
+\end{enumerate}
+
+\subsection{Solution}
+(a):\\
+In Hypergeometric,$ \left(\begin{array}{l}
+X \\
+2
+\end{array}\right)$ is the number of ways to choose 2 white balls.\\
+Thus $E\left[ \left(\begin{array}{l}
+X \\
+2
+\end{array}\right) \right] = \left(\begin{array}{l}
+n \\
+2
+\end{array}\right) \frac{w}{w+b} \frac{w-1}{w+b-1} = \frac{n(n-1)w(w-1)}{2(w+b)(w+b-1)}$.\\
+(b):\\
+By (a) we have $EX^2 - EX = E(X(X-1)) = \frac{n(n-1)p(w-1)}{N-1}$, where $p = \frac{w}{w+b}$ and $N = w+b$.\\
+So $Var(X) = E(X^2) - (EX)^2 = \frac{n(n-1)p(w-1)}{N-1} + np - (np)^2 = np(\frac{(N-n)(N-w)}{N(N-1)}) = \frac{N-n}{N-1} np(1-p)$.
+\end{homeworkProblem}
+
+\newpage
+\begin{homeworkProblem}[4]
+Let X have PMF $$P(X=k)=cp^k/k \ for \ k=1,2,\dots,$$
+where $p$ is a parameter with $0<p<1$ and $c$ is a normalizing constant. We have $c=-1/log(1-p)$, as seen from the Taylor series $$-log(1-p)=p+\frac{p^2}{2}+\frac{p^3}{3}+\dots $$
+This distribution is called the Logarithmic distribution (because of the log in the above Taylor series), and has often been used in ecology. Find the mean and variance of X.
+\subsection{Solution}
+We first solve the mean of X:\\
+\begin{center}
+    $E[X] = \sum_{k=1}^{\infty} k \cdot p(X = k) = c \cdot \sum_{k=1}^{\infty} k \cdot \frac{p^k}{k} = c \cdot \frac{p}{1-p} = -\frac{p}{(1-p)log(1-p)}$.
+\end{center}
+
+Then we can find E[$X^2$] by the same method, and Var(X) = E[$X^2$] - (E[X])$^2$.
+\begin{center}
+    $E[X^2] = \sum_{k=1}^{\infty} k^2 \cdot p(X = k) = c \cdot \sum_{k=1}^{\infty} k^2 \cdot \frac{p^k}{k} = cp \sum_{k=1}^{\infty} k \cdot p^{k-1} = cp \cdot \frac{1}{(1-p)^2} $\\
+    $Var(X) = E[X^2] - (E[X])^2 = \frac{cp(1-cp)}{(1-p)^2}$\\
+\end{center}
+\end{homeworkProblem}
+
+\newpage
+\begin{homeworkProblem}[5]
+Let $X$ be a discrete R.V. whose distinct possible values are $a_1, a_2,...,a_n,$ with probabilities $p_1, p_2 ...,p_n,$ respectively (so $p_1 + p_2 + \cdots + p_n = 1$). The entropy of $X$ is defined to be the average surprise of learning the value of $X$:
+\begin{equation*}
+    H(X)=\sum_{j=1}^np_j\log_2(1/p_j).
+\end{equation*}
+Show that the maximum entropy for $X$ is when
+its distribution is uniform over $a_1, a_2,...,a_n,$ i.e., $p_j = 1/n, \forall j$.
+\subsection{Solution}
+To show that the maximum entropy for $X$ is when its distribution is uniform over $a_1, a_2,...,a_n,$ we can use the Jensen's inequality.\\
+Consider a r.v. $Y$ whose possible values are the probabilities $p_1, p_2,...,p_n$. Then $H(x) = E(log_2(1/Y))$ and $E(\frac{1}{Y}) = \sum_{j=1}^n p_j \cdot \frac{1}{p_j} = n$.\\
+By Jensen's inequality, $E(log_2(1/Y)) \leq log_2(E(1/Y)) = log_2(n)$.\\
+The equality holds if and only if $Y$ is a constant, i.e., $p_j = 1/n, \forall j$, which means the distribution of $X$ is uniform over $a_1, a_2,...,a_n$.
+
+\end{homeworkProblem}
+
+
+\newpage
+\begin{homeworkProblem}[6]
+    (\textbf{Optional Challenging Problem I})
+    Show the following theorems:
+\begin{enumerate}
+    \item Given a complete graph $K_n (n \geq 3)$, if $\binom nm2^{-\binom m2+1}<1$
+, then it is possible to color the edges of $K_n$ with two colors so that it has no monochromatic $K_m$ subgraph
+$(1 < m < n)$.
+\item Let $M\in F(x_{1},x_{2},\ldots,x_{n})$ be a non-zero polynomial of total degree $d \geq 0$ over a
+field $F$. Let S be a finite subset of $F$ and let $r_{1},r_{2},\ldots,r_{n}$ be selected at random
+independently and uniformly from $S$. Then
+\begin{equation*}
+    P[M(r_1,r_2,\ldots,r_n)=0]\leq\frac{d}{|S|}.
+\end{equation*}
+\end{enumerate}
+
+\end{homeworkProblem}
+
+
+
+\end{document}

@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1728836476.99978 "/Users/bearxiong/Documents/ShanghaiTech/SI140A_2024_fall/SI140A_HW/SI_140A_02_Homework_2/SI_140A_02_Homework_2/SI_140A_02_Homework_2.tex" "SI_140A_02_Homework_2.pdf" "SI_140A_02_Homework_2" 1728836477.56162 0
-  "/Users/bearxiong/Documents/ShanghaiTech/SI140A_2024_fall/SI140A_HW/SI_140A_02_Homework_2/SI_140A_02_Homework_2/SI_140A_02_Homework_2.tex" 1728836476.80588 17625 dc9738b05de7e67c48595aa6c5f8e01c ""
+["pdflatex"] 1728885623.86153 "/Users/bearxiong/Documents/ShanghaiTech/SI140A_2024_fall/SI140A_HW/SI_140A_02_Homework_2/SI_140A_02_Homework_2/SI_140A_02_Homework_2.tex" "SI_140A_02_Homework_2.pdf" "SI_140A_02_Homework_2" 1728885624.38371 0
+  "/Users/bearxiong/Documents/ShanghaiTech/SI140A_2024_fall/SI140A_HW/SI_140A_02_Homework_2/SI_140A_02_Homework_2/SI_140A_02_Homework_2.tex" 1728885623.07753 17620 c5481fb2668cedc4daf1657ac23ed76e ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1136768653 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
@@ -141,8 +141,8 @@
   "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1728201913.42938 5467645 128b85b7cde5f5edc5cb7f1dd7ff8736 ""
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1728201841 8221417 607b798d4334b144a4602854782218f2 ""
   "/usr/local/texlive/2024/texmf.cnf" 1710266656 577 e590dabc9e28c5b61546e15f63eebcdf ""
-  "SI_140A_02_Homework_2.aux" 1728836477.49812 862 0c9fea8cf40ddc5bae596281b3617ad9 "pdflatex"
-  "SI_140A_02_Homework_2.tex" 1728836476.80588 17625 dc9738b05de7e67c48595aa6c5f8e01c ""
+  "SI_140A_02_Homework_2.aux" 1728885624.32198 862 0c9fea8cf40ddc5bae596281b3617ad9 "pdflatex"
+  "SI_140A_02_Homework_2.tex" 1728885623.07753 17620 c5481fb2668cedc4daf1657ac23ed76e ""
   (generated)
   "SI_140A_02_Homework_2.aux"
   "SI_140A_02_Homework_2.log"

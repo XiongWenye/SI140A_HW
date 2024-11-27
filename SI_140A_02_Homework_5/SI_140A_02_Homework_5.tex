@@ -1,0 +1,398 @@
+% !TeX TS-program = pdflatex
+
+
+\documentclass[a4paper]{article}
+
+% \usepackage[default]{fontsetup}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{tikz}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%  
+
+\topmargin=-0.2in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.5in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+		\node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Class
+%   - Due date
+%   - Name
+%   - Student ID
+
+\newcommand{\hmwkTitle}{Homework\ \#05}
+\newcommand{\hmwkClass}{Probability \& Statistics for EECS}
+\newcommand{\hmwkDueDate}{2024-11-05}
+\newcommand{\hmwkAuthorName}{Wenye Xiong}
+\newcommand{\hmwkAuthorID}{2023533141}
+
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\\  \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59}\\
+	\vspace{4in}
+}
+
+\author{
+	Name: \textbf{\hmwkAuthorName} \\
+	Student ID: \hmwkAuthorID}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+
+% \maketitle
+% \thispagestyle{empty}
+% \pagebreak
+
+\date{
+Due on Nov. 5, 2024, 11:59 UTC+8}
+\title{SI 140A-02  Probability \& Statistics for EECS, Fall 2024 \\
+Homework 5}
+\maketitle
+Read all the instructions below carefully before you start working on the assignment, and before you make a submission.
+\begin{itemize}
+    \item You are required to write down all the major steps towards making your conclusions; otherwise you may obtain limited points of the problem.
+    \item Write your homework in English; otherwise you will get no points of this homework.
+    \item Any form of plagiarism will lead to $0$ point of this homework. 
+\end{itemize}
+\newpage
+
+\begin{homeworkProblem}[1]
+A building has $n$ floors, labeled $1,2, \ldots, n$. At the first floor, $k$ people enter the elevator, which is going up and is empty before they enter. Independently, each decides which of floors $2,3, \ldots, n$ to go to and presses that button (unless someone has already pressed it).
+\begin{enumerate}[(a)]
+\item  Assume for this part only that the probabilities for floors $2,3, \ldots, n$ are equal. Find the expected number of stops the elevator makes on floors $2,3, \ldots, n$.
+\item Generalize (a) to the case that floors $2,3, \ldots, n$ have probabilities $p_{2}, \ldots, p_{n}$ (respectively); you can leave your answer as a finite sum.
+\end{enumerate}
+\subsection{Solution}
+(a):\\
+Let X be the total number of stops, and we get $X = X_2 + X_3 + \cdots + X_n$, where $X_i$ is the indicator random variable for the event that the elevator stops at floor $i$. Then we have:
+\begin{center}
+    $E(X_i) = P(\text{at least one people stop at floor i}) = 1 - P(\text{no people stop at floor i}) = 1 - \left(1 - \frac{1}{n - 1}\right)^k = 1 - \left(\frac{n - 2}{n - 1}\right)^k$
+\end{center}
+Thus we have:
+\begin{center}
+    $E(X) = E(X_2) + E(X_3) + \cdots + E(X_n) = (n - 1)(1 - \left(\frac{n - 2}{n - 1}\right)^k)$
+\end{center}
+(b):\\
+As we have discussed in (a), we have:
+\begin{center}
+    $E(X_i) = 1 - \left(1 - p_i\right)^k$
+\end{center}
+Thus we have:
+\begin{center}
+    $E(X) = E(X_2) + E(X_3) + \cdots + E(X_n) = \sum_{i = 2}^{n} (1 - \left(1 - p_i\right)^k) = n - 1 - \sum_{i = 2}^{n} \left(1 - p_i\right)^k$
+\end{center}
+\end{homeworkProblem}
+\newpage
+
+\begin{homeworkProblem}[2]
+Suppose there are $n$ types of toys, which you are collecting one by one, with the goal of getting a complete set. When collecting toys, the toy types are random (as is sometimes the case, for example, with toys included in cereal boxes or included with kids' meals from a fast food restaurant). Assume that each time you collect a toy, it is equally likely to be any of the $n$ types. Let $N$ denote the number of toys needed until you have a complete set. Find $\operatorname{Var}(N)$.
+\subsection{Solution}
+Let $N$ be the random variable that represents the number of toys needed to collect a complete set of $n$ types of toys. We first want to know the Expectation of $N$. Let $I_i$ denote the sequence of the type of toys that we collect at the i-th time($1 \leq C_i \leq n$).\\
+We also let $X_i$ be the time to collect the i-th new type of toys after we have collected $i - 1$ types of toys. Then we have: $N = X_1 + X_2 + \cdots + X_n$.\\
+Think of the probability of collecting a new type of toy is $p_i = \frac{n - i + 1}{n}$, then we know that $X_i$ follows a geometric distribution with parameter $p_i$. Thus we have: $E(X_i) = \frac{1}{p_i} = \frac{n}{n - i + 1}$.\\
+By the linearity of expectation, we have: $E(N) = E(X_1) + E(X_2) + \cdots + E(X_n) = \frac{n}{n} + \frac{n}{n - 1} + \cdots + \frac{n}{1} = n(1 + \frac{1}{2} + \cdots + \frac{1}{n}) = nH_n$, where $H_n$ is the n-th harmonic number. For large n, we have $H_n \approx \ln n + \gamma$, where $\gamma$ is the Euler-Mascheroni constant.\\
+\\
+Now we want to know the variance of $N$. We have:
+\begin{center}
+    $Var(N) = Var(X_1) + Var(X_2) + \cdots + Var(X_n) = \sum_{i = 1}^{n} \frac{1 - p_i}{p_i^2} = \sum_{i = 1}^{n} \frac{n \cdot (i - 1)}{(n - i + 1)^2} = \sum_{i = 0}^{n - 1} \frac{n i}{(n - i)^2}$\\
+    $= \sum_{i = 1}{n} \frac{n(n-i)}{i^2} = n^2 \sum_{i = 1}^{n} \frac{1}{i^2} - n \sum_{i = 1}^{n} \frac{1}{i} = n^2 \sum_{i = 1}^{n} \frac{1}{i^2} - nH_n = \frac{\pi ^2}{6}n^2 - n\ln n - n\gamma$
+\end{center}
+\end{homeworkProblem}
+
+\newpage
+\begin{homeworkProblem}[3]
+Given a six-sided dice, let $X$ denote the number obtained by rolling the dice one time. The PMF of $X$ is: $P(X=1)=P(X=2)=\frac{1}{7}, P(X=3)=P(X=4)=\frac{1}{5}$, $P(X=5)=\frac{2}{35}, P(X=6)=\frac{9}{35}$. Now the dice is rolled five times independently. What is more likely: a sum of 24 or a sum of 25 ?
+\subsection{Solution}
+Consider the Probability Generating Function of $X$, we have:
+\begin{center}
+    $E(t^{X_1}) = \sum_{i = 1}^{6} P(X = i)t^i = \frac{1}{7}t + \frac{1}{7}t^2 + \frac{1}{5}t^3 + \frac{1}{5}t^4 + \frac{2}{35}t^5 + \frac{9}{35}t^6$
+\end{center}
+Since the dice is rolled five times independently, $X_i$ are i.i.d. random variables. Thus we have:
+\begin{center}
+    $E(t^X) = E(t^{X_1 + X_2 + X_3 + X_4 + X_5}) = E(t^{X_1})^5 = (\frac{1}{7}t + \frac{1}{7}t^2 + \frac{1}{5}t^3 + \frac{1}{5}t^4 + \frac{2}{35}t^5 + \frac{9}{35}t^6)^5$
+\end{center}
+Now we want to know the probability of the sum of 24 and 25, which is the coefficient of $t^{24}$ and $t^{25}$ in $E(t^X)$. We can expand $E(t^X)$ with the help of Wolfram Alpha, and we get:
+\begin{center}
+    $E(t^X) = (59049 t^{30})/52521875 + (13122 t^{29})/10504375 + (51759 t^{28})/10504375 + (88047 t^{27})/10504375 + (22689 t^{26})/1500625 + (1340537 t^{25})/52521875 + (375916 t^{24})/10504375 + (544406 t^{23})/10504375 + (687591 t^{22})/10504375 + (836718 t^{21})/10504375 + (4808007 t^{20})/52521875 + (1020519 t^{19})/10504375 + (1047666 t^{18})/10504375 + (994101 t^{17})/10504375 + (896977 t^{16})/10504375 + (3815657 t^{15})/52521875 + (24134 t^{14})/420175 + (90441 t^{13})/2100875 + (2487 t^{12})/84035 + (7941 t^{11})/420175 + (186 t^{10})/16807 + (69 t^9)/12005 + (45 t^8)/16807 + (17 t^7)/16807 + (5 t^6)/16807 + t^5/16807$
+\end{center}
+We can see that the coefficient of $t^{24}$ is $\frac{375916}{10504375}$, and the coefficient of $t^{25}$ is $\frac{1340537}{52521875}$. Thus we know that the probability of the sum of 24 is more likely than the sum of 25.
+\end{homeworkProblem}
+
+\newpage
+\begin{homeworkProblem}[4]
+Given a random variable $X \sim \operatorname{Pois}(\lambda)$ where $\lambda>0$, show that for any non-negative integer $k$, we have the following identity:
+$$
+E\left[\binom{X}{k}\right]=\frac{\lambda^{k}}{k!}
+$$
+\subsection{Solution}
+Let $X \sim \operatorname{Pois}(\lambda)$, then we have:
+\begin{center}
+    $E\left[\binom{X}{k}\right] = \sum_{i = 0}^{\infty} \binom{i}{k} \frac{e^{-\lambda} \lambda^i}{i!} = \sum_{i = k}^{\infty} \frac{i!}{k!(i - k)!} \frac{e^{-\lambda} \lambda^i}{i!} = \sum_{i = k}^{\infty} \frac{e^{-\lambda} \lambda^i}{k!(i - k)!} = \frac{e^{-\lambda}}{k!} \sum_{i = k}^{\infty} \frac{\lambda^i}{(i - k)!}$
+\end{center}
+Let $j = i - k$, then we have:
+\begin{center}
+    $E\left[\binom{X}{k}\right] = \frac{e^{-\lambda}}{k!} \sum_{j = 0}^{\infty} \frac{\lambda^{j + k}}{j!} = \frac{e^{-\lambda} \lambda^k}{k!} \sum_{j = 0}^{\infty} \frac{\lambda^j}{j!} = \frac{e^{-\lambda} \lambda^k}{k!} e^{\lambda} = \frac{\lambda^k}{k!}$
+\end{center}
+Thus we have proved that $E\left[\binom{X}{k}\right] = \frac{\lambda^k}{k!}$.
+\end{homeworkProblem}
+
+\newpage
+\begin{homeworkProblem}[5]
+\begin{enumerate}[(a)]
+\item  Use LOTUS to show that for $X \sim \operatorname{Pois}(\lambda)$ and any function $g$,
+$$
+E(X g(X))=\lambda E(g(X+1))
+$$
+
+This is called the Stein-Chen identity for the Poisson.
+\item  Find the moment $E\left(X^{4}\right)$ for $X \sim \operatorname{Pois}(\lambda)$ by using the identity from (a) with the fact that $X$ has mean $\lambda$ and variance $\lambda$.
+\end{enumerate}
+\subsection{Solution}
+(a):\\
+Because $X \sim \operatorname{Pois}(\lambda)$, we have $P(X = i) = \frac{e^{-\lambda} \lambda^i}{i!}$. Then we have:
+\begin{center}
+    $E(X g(X)) = \sum_{i = 0}^{\infty} i g(i) \frac{e^{-\lambda} \lambda^i}{i!} = \lambda \sum_{i = 0}^{\infty} g(i) \frac{e^{-\lambda} \lambda^{i-1}}{(i-1)!}$\\
+\end{center}
+Let $j = i - 1$, then we have:
+\begin{center}
+    $E(X g(X)) = \lambda \sum_{j = 0}^{\infty} g(j + 1) \frac{e^{-\lambda} \lambda^j}{j!} = \lambda E(g(X + 1))$
+\end{center}
+Thus we have proved that $E(X g(X)) = \lambda E(g(X + 1))$.\\
+\\
+(b):\\
+Let $g(X) = X^4$, then we have:
+\begin{center}
+    $E(X^4) = E(X g(X)) = \lambda E(g(X + 1)) = \lambda E((X + 1)^3) = \lambda (E(X^3) + E(3X^2) + E(3X) + 1)$\\
+    $= \lambda (E(X^3) + 3(\lambda^2 + \lambda) + 3\lambda + 1)$
+    $= \lambda (\lambda E((X + 1)^2) + 3\lambda^2 + 6\lambda + 1)$\\
+    $= \lambda (\lambda (E(X^2) + E(2X) + 1) + 3\lambda^2 + 6\lambda + 1)$
+    $= \lambda (\lambda (\lambda^2 + \lambda + 2\lambda + 1) + 3\lambda^2 + 6\lambda + 1)$\\
+    $= \lambda (\lambda^3 + 6\lambda^2 + 7\lambda + 1)$
+    $= \lambda^4 + 6\lambda^3 + 7\lambda^2 + \lambda$
+\end{center}
+
+\end{homeworkProblem}
+
+\newpage
+\begin{homeworkProblem}[6]
+Suppose a fair coin is tossed repeatedly, and we obtain a sequence of H and T ( H denotes Head and T denotes Tail). Let $N$ denote the number of tosses to observe the first occurrence of the pattern "HTHT". Find $E(N)$ and $\operatorname{Var}(N)$.
+\subsection{Solution}
+Suppose $P(H) = p$ and $P(T) = 1 - p = q$. 
+Let $P_k = P(N = k)$, then we have $P_0 = P_1 = P_2 = P_3 = 0$, $P_4 = p^2q^2$, $P_5 = p^2q^2$, $P_6 = (1 - pq) p^2q^2$.\\
+Denote $S_i$ as the result of the $i-th$ toss, then we have the following equations according to the law of total probability:
+\begin{center}
+    $P_k = P(N = k) = P(N = k | S_1 = H)P(S_1 = H) + P(N = k | S_1 = T)P(S_1 = T) = P(N = k, S_1 = H) + P(N = k, S_1 = T)$\\
+    $P(N = k, S_1 = H) = P(N = k, S_1 = H | S_2 = H)P(S_2 = H) + P(N = k, S_1 = H | S_2 = T)P(S_2 = T) = P(N = k, S_1 = H, S_2 = H) + P(N = k, S_1 = H, S_2 = T)$\\
+    $P(N = k, S_1 = H) = \hat{P_k}$\\
+    $P(N = k, S_1 = H, S_2 = T) = pqP(N = k - 2) = pqP_{k - 2}$\\
+    $P(N = k, S_1 = T) = qP(N = k - 1) = qP_{k - 1}$\\
+    $P(N = k, S_1 = H, S_2 = H) = p^2P(N = k - 1, S_1 = H) = p^2 \hat{P_{k-1}}$\\
+\end{center}
+Take $p = \frac{1}{2}$, then we have:
+\begin{center}
+    $\hat{P_k} = \frac{\hat{P_{k-1}}}{2} + \frac{\hat{P_{k-3}}}{8} + \frac{P_{k-3}}{4}$
+\end{center}
+So $P_k = P_{k-1} - \frac{P_{k-2}}{2} + \frac{P_{k-3}}{2} - \frac{P_{k-4}}{8}$.\\
+Then we have the Probability Generating Function:
+\begin{center}
+    $G(t) = \frac{t^4}{16} + \sum_{i = 5}^{\infty} P_i t^i = \frac{t^4}{16} + G(t) (t - \frac{t^2}{2} + \frac{t^3}{4} - \frac{t^4}{8})$\\
+\end{center}
+Then we have:
+\begin{center}
+    $E(N) = G'(1) = 20$\\
+    $Var(N) = G''(1) + G'(1) - (G'(1))^2 = 276$\\
+\end{center}
+\end{homeworkProblem}
+
+\newpage
+\begin{homeworkProblem}[7]
+People are arriving at a party one at a time. While waiting for more people to arrive they entertain themselves by comparing their birthdays. Let $X$ be the number of people needed to obtain a birthday match, i.e., before person $X$ arrives there are no two people with the same birthday, but when person $X$ arrives there is a match.
+
+Assume for this problem that there are $365$ days in a year, all equally likely. By the result of the birthday problem form Chapter 1, for $23$ people there is a $50.7\%$ chance of a birthday match (and for $22$ people there is a less than $50\%$ chance). But this has
+to do with the median of $X$; we also want to know the mean of $X$, and in this problem we will find it, and see how it compares with $23$.
+\begin{enumerate}[(a)]
+    \item A median of an r.v. $Y$ is a value m for which $P(Y \leq m) \geq 1/2$ and $P(Y \geq m) \geq 1/2$. Every distribution has a median, but for some distributions it is not unique. Show that $23$ is the unique median of $X$.
+    \item Show that $X = I_1+I_2+ \cdots +I_{366}$, where $I_j$ is the indicator r.v. for the event $X \geq j$. Then find $E(X)$ in terms of $p_j$'s defined by $p_1 = p_2 = 1$ and for $3 \leq j \leq 366$,
+\begin{equation*}
+	p_j = (1 - \frac1{365})(1 - \frac2{365})\cdots(1 - \frac{j-2}{365})
+\end{equation*}
+    \item Compute $E(X)$ numerically.
+
+    \item Find the variance of $X$, both in terms of the $p_j$'s and numerically.
+
+\end{enumerate}
+Hint:What is $I^2_i$, and what is $I_iI_j$ for $i < j$? Use this to simplify the expansion
+\begin{equation*}
+	X^2 = I_1^2 + \cdots + I_{366}^2 + 2\sum_{j=2}^{366}\sum_{i=1}^{j-1}I_iI_j.
+\end{equation*}
+
+Note: In addition to being an entertaining game for parties, the birthday problem has many applications in
+computer science, such as in a method called the birthday attack in cryptography. It can be shown that if
+there are $n$ days in a year and $n$ is large, then $E(X) \approx \sqrt{\frac{\pi n}{w}}$. In Volume 1 of his masterpiece \textit{The Art of Computer Programming}, Don Knuth shows that an even better approximation is
+\begin{equation*}
+    E(X) \approx \sqrt{\frac{\pi n}{2}}+\frac{2}{3}+\sqrt{\frac{\pi}{288 n}} .
+\end{equation*}
+
+\subsection{Solution}
+(a):\\
+For an arbitrary pair of people, the probability of having the same birthday is 1/365. It is denoted that
+the number of birthday match is Z. Since in the corresponding number of samples is relatively large and
+the probability is small, we have
+\begin{center}
+    $P(Z = 0) = (1 - \frac{1}{365})^{n} \approx e^\lambda$\\
+    $P(Z \geq 1) = 1 - P(Z = 0) \approx 1 - e^\lambda$
+\end{center}
+where $\lambda = \begin{pmatrix}
+    m\\
+    2
+\end{pmatrix} p $, m is the number of people and p is the probability of having the same birthday.\\
+Thus we have:
+\begin{center}
+    $P(X \leq 23) \approx 1 - e^\lambda \approx 0.5002 > 0.5$\\
+\end{center}
+On the other hand, we have:
+\begin{center}
+    $P(X \geq 23) = e^\lambda \approx 0.531 \geq 0$\\
+\end{center}
+Thus we have proved that 23 is the unique median of X.\\
+\\
+(b):\\
+For X, it can always be expressed with the sum of binary indicators since it is not decreasing. Then we
+have
+\begin{center}
+    $E(X) = E(I_1 + I_2 + \cdots + I_{366}) = E(I_1) + E(I_2) + \cdots + E(I_{366}) = p_1 + p_2 + \cdots + p_{366} = \sum_{j = 1}^{366} p_j$\\
+\end{center}
+(c):\\
+We can compute $E(X)$ numerically by using the formula in (b). Using Python, we get that $E(X) \approx 24.62$.\\
+\\
+(d):\\
+$E(X^2) = E(I_1^2 + I_2^2 + \cdots + I_{366}^2 + 2\sum_{j=2}^{366}\sum_{i=1}^{j-1}I_iI_j) = E(I_1^2) + E(I_2^2) + \cdots + E(I_{366}^2) + 2E(\sum_{j=2}^{366}\sum_{i=1}^{j-1}I_j) $\\
+$= \sum_{j=1}^{366} p_j + 2 \sum_{j = 1}^{366} (j - 1)E(I_j) = \sum_{j=1}^{366} (2j-1)p_j .$
+Thus we have:
+$D(X) = E(X^2) - (E(X))^2 \approx 148.64$
+\end{homeworkProblem}
+
+\newpage
+\begin{homeworkProblem}[8] (\textbf{Optional Challenging Problem})
+\begin{enumerate}[(a)]
+\item
+Let $W$ be a bounded non-negative integer-valued random variable. If for all integer $k \geq 0$,
+$$
+E\left[\binom{W}{k}\right] \approx \frac{\lambda^{k}}{k!}
+$$
+
+Show that
+$$
+P(W=k) \approx e^{-\lambda} \frac{\lambda^{k}}{k!}
+$$
+
+\item  There are $n$ people in a room. Assume each person's birthday is equally likely to be any of the 365 days of the year (we exclude February 29), and that peoples birthdays are independent (we assume there are no twins in the room). When the probability that three or more people in the group have the same birthday is $1 / 2$, find $n$.
+\end{enumerate}
+\end{homeworkProblem}
+
+\end{document}
