@@ -1,0 +1,458 @@
+% !TeX TS-program = pdflatex
+
+
+\documentclass[a4paper]{article}
+
+% \usepackage[default]{fontsetup}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{tikz}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{fdsymbol}
+
+
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%  
+
+\topmargin=-0.2in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.5in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+		\node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Class
+%   - Due date
+%   - Name
+%   - Student ID
+
+\newcommand{\hmwkTitle}{Homework\ \#08}
+\newcommand{\hmwkClass}{Probability \& Statistics for EECS}
+\newcommand{\hmwkDueDate}{2024-11-26}
+\newcommand{\hmwkAuthorName}{Wenye Xiong}
+\newcommand{\hmwkAuthorID}{2023533141}
+
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\\  \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59}\\
+	\vspace{4in}
+}
+
+\author{
+	Name: \textbf{\hmwkAuthorName} \\
+	Student ID: \hmwkAuthorID}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+
+% \maketitle
+% \thispagestyle{empty}
+% \pagebreak
+
+\date{
+Due on Dec. 3, 2024, 11:59 UTC+8}
+\title{SI 140A-02  Probability \& Statistics for EECS, Fall 2024 \\
+Homework 8}
+\maketitle
+Read all the instructions below carefully before you start working on the assignment, and before you make a submission.
+\begin{itemize}
+    \item You are required to write down all the major steps towards making your conclusions; otherwise you may obtain limited points of the problem.
+    \item Write your homework in English; otherwise you will get no points of this homework.
+    \item Any form of plagiarism will lead to $0$ point of this homework. 
+\end{itemize}
+\newpage
+
+\begin{homeworkProblem}[1]
+Let $X$ and $Y$ be two continuous random variables with joint PDF
+
+$$
+f_{X, Y}(x, y)= \begin{cases}c x^{2} y & \text { if } 0 \leq y \leq x \leq 1 \\ 0 & \text { otherwise. }\end{cases}
+$$
+
+\begin{enumerate}[(a)]
+    \item Find the value of constant $c$.
+    \item Find the conditional probability $P\left(\left.Y \leq \frac{X}{4} \right\rvert\, Y \leq \frac{X}{2}\right)$.
+
+\end{enumerate}
+\subsection{Solution}
+(a):\\
+According to the definition of joint PDF, we have
+\begin{center}
+    $$1 = \int_{-\infty}^{+\infty} \int_{-\infty}^{+\infty} f_{X, Y}(x, y) \,dx\,dy = \int_{0}^{1} \int_{0}^{x} c x^{2} y \,dy\,dx = \int_{0}^{1} \frac{c}{2} x^{4} \,dx = \frac{c}{10}$$
+\end{center}
+Thus, we have $c = 10$.\\
+(b):\\
+\begin{center}
+    $$P\left(\left.Y \leq \frac{X}{4} \right\rvert\, Y \leq \frac{X}{2}\right) = \frac{P\left(Y \leq \frac{X}{4}, Y \leq \frac{X}{2}\right)}{P\left(Y \leq \frac{X}{2}\right)} = \frac{\int_{0}^{1} \int_{0}^{x/4} 10 x^{2} y \,dy\,dx}{\int_{0}^{1} \int_{0}^{x/2} 10 x^{2} y \,dy\,dx} = \frac{1}{4}$$
+\end{center}
+
+\end{homeworkProblem}
+\newpage
+
+\begin{homeworkProblem}[2]
+Let $X$ and $Y$ be two integer random variables with joint PMF
+$$
+P_{X, Y}(x, y)= \begin{cases}\frac{1}{6 \cdot 2^{\min (x, y)}} & \text { if } x, y \geq 0,|x-y| \leq 1 \\ 0 & \text { otherwise }\end{cases}
+$$
+	
+\begin{enumerate}[(a)]
+    \item 
+    Find the marginal distributions of $X$ and $Y$.
+    \item
+    Are $X$ and $Y$ independent?   
+    \item
+    Find $P(X=Y)$.  
+
+\end{enumerate}
+\subsection{Solution}
+(a)\\ The marginal distributions of $X$ is
+$$
+P_X(X)=\sum_{y=0}^{\infty} P_{X, Y}(X, Y)
+$$
+
+When $X=0$, we have
+$$
+P(X=0)=P(X=0, Y=0)+P(X=0, Y=1)=\frac{1}{3} .
+$$
+
+When $X \neq 0$, we have
+$$
+P(X=x)=P(X=x, Y=x-1)+P(X=x, Y=x)+P(X=x, Y=x+1)=\frac{1}{6 \cdot 2^{x-2}} .
+$$
+
+Thus, the marginal distribution of $X$ is
+$$
+P_X(X)=\left\{\begin{array}{l}
+\frac{1}{3}, \quad x=0 \\
+\frac{1}{6 \cdot 2^{x-2}}, \quad x>0 \\
+0, \quad \text { otherwise }
+\end{array}\right.
+$$
+
+According to the symmetric, the marginal distribution of $Y$ is
+$$
+P_Y(Y)=\left\{\begin{array}{l}
+\frac{1}{3}, \quad y=0 \\
+\frac{1}{6 \cdot 2^{y-2}}, \quad y>0 \\
+0, \quad \text { otherwise }
+\end{array}\right.
+$$\\
+(b) \\Since that
+$$
+P_{X, Y}(0,0)=\frac{1}{6},
+$$
+and
+$$
+P(X=0) P(Y=0)=\frac{1}{9}
+$$
+$X$ and $Y$ are not independent.\\
+(c) \\According to symmetric, we have $P(X=Y)=P(X=Y-1)=P(X=Y+1)$ and $P(X=Y)+P(X=$ $Y-1)+P(X=Y+1)=1$. Thus, we have
+$$
+P(X=Y)=\frac{1}{3} .
+$$
+\end{homeworkProblem}
+
+\newpage
+\begin{homeworkProblem}[3]
+Let $X$ and $Y$ be i.i.d. $\mathcal{N}(0,1)$, and let $S$ be a random sign 1 or -1 , with equal probabilities independent of ( $X, Y$ ).
+	
+\begin{enumerate}[(a)]
+	\item  Determine whether or not $(X, Y, X+Y)$ is Multivariate Normal.
+	\item  Determine whether or not $(X, Y, S X+S Y)$ is Multivariate Normal.
+	\item  Determine whether or not $(S X, S Y)$ is Multivariate Normal.
+\end{enumerate}
+\subsection{Solution}
+(a) \\Yes, $(X, Y, X+Y)$ is Multivariate Normal, because for any $a, b, c \in R$,
+$$
+a X+b Y+c(X+Y)=(a+c) X+(b+c) Y
+$$
+and any linear combination of independent normally distributed variables are Normal.\\
+(b) \\Denote $Z=X+Y+S X+S Y=(1+S) X+(1+S) Y$. $Z=0$ is in fact $S=-1$, hence, we have that
+$$
+P(Z=0)=P(S=-1)=\frac{1}{2} .
+$$
+
+Hence, Z is not normally distributed.\\
+(c)\\ Observe that random vector $(\mathrm{X}, \mathrm{Y})$ is identically distributed as (-X,-Y). So,
+$$
+\begin{aligned}
+P(S X+S Y \leq k) & =P(S X+S Y \leq k, S=1)+P(S X+S Y \leq k, S=-1) \\
+& =P(S X+S Y \leq k \mid S=1) P(S=1)+P(S X+S Y \leq k \mid S=-1) P(S=-1) \\
+& =\frac{1}{2} P(X+Y \leq k)+\frac{1}{2} P(X+Y \geq-k) \\
+& =\frac{1}{2} P(X+Y \leq k)+\frac{1}{2} P(X+Y \leq k) \\
+& =P(X+Y \leq k) .
+\end{aligned}
+$$
+
+So, $(S X, S Y)$ is equally distributed as $(X, Y)$, and $(X, Y)$ is Bivariate normal. Hence, $(S X, S Y)$ is Multivariate Normal.
+\end{homeworkProblem}
+
+\newpage
+\begin{homeworkProblem}[4]
+Let $Z_{1}, Z_{2}$ be two i.i.d. random variables satisfying standard normal distributions, i.e., $Z_{1}, Z_{2} \sim \mathcal{N}(0,1)$. Define
+
+$$
+\begin{aligned}
+& X=\sigma_{X} Z_{1}+\mu_{X} \\
+& Y=\sigma_{Y}\left(\rho Z_{1}+\sqrt{1-\rho^{2}} Z_{2}\right)+\mu_{Y}
+\end{aligned}
+$$
+
+where $\sigma_{X}>0, \sigma_{Y}>0,-1<\rho<1$.
+\begin{enumerate}[(a)]
+    \item Show that $X$ and $Y$ are bivariate normal.
+    \item Find the correlation coefficient between $X$ and $Y$, i.e., $\operatorname{Corr}(X, Y)$.
+    \item Find the joint PDF of $X$ and $Y$.
+\end{enumerate}
+\subsection{Solution}
+(a)\\ For $a, b \in \mathbb{R}$, we have
+$$
+a X+b Y=\left(a \boldsymbol{\Sigma}_X+b \boldsymbol{\Sigma}_Y \rho\right) Z_1+b \sqrt{1-\rho^2} \boldsymbol{\Sigma}_Y Z_2+a \mu_X+b \mu_Y .
+$$
+
+Since the linear combination of two Normal distribution follows Normal distribution, $X$ and $Y$ are bivariate normal.\\
+(b)\\ Since $Z_1, Z_2 \sim \mathcal{N}(0,1)$. We have $\rho Z_1+\sqrt{1-\rho^2} Z_2 \sim \mathcal{N}(0,1)$. So $X \sim \mathcal{N}\left(\mu_X, \boldsymbol{\Sigma}_X\right), Y \sim \mathcal{N}\left(\mu_Y, \boldsymbol{\Sigma}_Y\right)$. Thus, we have
+$$
+\begin{aligned}
+\operatorname{Cov}(X, Y) & =\operatorname{Cov}\left(\boldsymbol{\Sigma}_X Z_1+\mu_X, \boldsymbol{\Sigma}_Y\left(\rho Z_1+\sqrt{1-\rho^2} Z_2\right)+\mu_Y\right) \\
+& =\boldsymbol{\Sigma}_X \boldsymbol{\Sigma}_Y \operatorname{Cov}\left(Z_1, \rho Z_1+\sqrt{1-\rho^2} Z_2\right) \\
+& =\boldsymbol{\Sigma}_X \boldsymbol{\Sigma}_Y\left(\rho \operatorname{Var}\left(Z_1\right)+\sqrt{1-\rho^2} \operatorname{Cov}\left(Z_1, Z_2\right)\right) \\
+& =\boldsymbol{\Sigma}_X \boldsymbol{\Sigma}_Y \rho
+\end{aligned}
+$$
+
+Then correlation coefficient between $X$ and $y$ is
+$$
+\operatorname{Corr}(X, Y)=\frac{\operatorname{Cov}(X, Y)}{\sqrt{\operatorname{Var}(X) \operatorname{Var}(Y)}}=\frac{\boldsymbol{\Sigma}_X \boldsymbol{\Sigma}_Y \rho}{\boldsymbol{\Sigma}_X \boldsymbol{\Sigma}_Y} .
+$$\\
+(c)\\ Since $Z_1$ and $Z_2$ are i.i.d., we have
+$$
+f_{Z_1, Z_2}\left(z_1, z_2\right)=f_{Z_1}\left(z_1\right) f_{Z_2}\left(z_2\right)=\frac{1}{2 \pi} e^{-\frac{z_1^2+z_2^2}{2}} .
+$$
+
+Since $X=\boldsymbol{\Sigma}_X Z_1+\mu_X, Y=\boldsymbol{\Sigma}_Y\left(\rho Z_1+\sqrt{1-\rho^2} Z_2\right)+\mu_Y$, we have
+$$
+Z_1=\frac{X-\mu_X}{\boldsymbol{\Sigma}_X}
+$$
+and
+$$
+Z_2=\frac{Y-\mu_Y}{\sqrt{1-\rho^2} \boldsymbol{\Sigma}_Y}-\rho \frac{X-\mu_X}{\sqrt{1-\rho^2} \boldsymbol{\Sigma}_X} .
+$$
+
+Thus, we have
+\[
+f_{X, Y}(x, y) = \left|\frac{\partial(Z_1, Z_2)}{\partial(X, Y)}\right| f_{Z_1, Z_2}(z_1, z_2)
+\]
+\[
+= \frac{1}{\left|\begin{array}{cc}
+\frac{\partial z_1}{\partial x} & \frac{\partial z_1}{\partial y} \\
+\frac{\partial z_2}{\partial x} & \frac{\partial z_2}{\partial y}
+\end{array}\right|} f_{Z_1, Z_2}(z_1, z_2)
+\]
+\[
+= \frac{1}{\left|\begin{array}{cc}
+\frac{1}{\Sigma_X} & 0 \\
+-\frac{\rho}{\sqrt{1-\rho^2} \Sigma_X} & \frac{1}{\sqrt{1-\rho^2} \Sigma_Y}
+\end{array}\right|} f_{Z_1, Z_2}\left(\frac{x-\mu_X}{\Sigma_X}, \frac{y-\mu_Y}{\sqrt{1-\rho^2} \Sigma_Y} - \rho \frac{x-\mu_X}{\sqrt{1-\rho^2} \Sigma_X}\right)
+\]
+\[
+= \frac{1}{\Sigma_X \Sigma_Y \sqrt{1-\rho^2}} f_{Z_1, Z_2}\left(\frac{x-\mu_X}{\Sigma_X}, \frac{y-\mu_Y}{\sqrt{1-\rho^2} \Sigma_Y} - \rho \frac{x-\mu_X}{\sqrt{1-\rho^2} \Sigma_X}\right)
+\]
+\[
+= \frac{1}{2 \pi \Sigma_X \Sigma_Y \sqrt{1-\rho^2}} \exp\left(-\frac{\left(\frac{x-\mu_X}{\Sigma_X}\right)^2 + \left(\frac{y-\mu_Y}{\sqrt{1-\rho^2} \Sigma_Y} - \rho \frac{x-\mu_X}{\sqrt{1-\rho^2} \Sigma_X}\right)^2}{2}\right)
+\]
+\[
+= \frac{1}{2 \pi \Sigma_X \Sigma_Y \sqrt{1-\rho^2}} \exp\left(-\frac{\left(\frac{x-\mu_X}{\Sigma_X}\right)^2 - 2 \rho \frac{(x-\Sigma_X)(y-\Sigma_Y)}{\Sigma_X \Sigma_Y} + \left(\frac{y-\mu_Y}{\Sigma_Y}\right)^2}{2(1-\rho^2)}\right).
+\]
+   
+\end{homeworkProblem}
+
+\newpage
+\begin{homeworkProblem}[5]
+\begin{enumerate}[(a)]
+	\item Let $X$ and $Y$ be i.i.d. $\mathcal{N}(0,1)$, and $Z=\frac{X}{Y}$. Find the PDF of $Z$.	
+	\item Let $X$ and $Y$ be i.i.d. $\operatorname{Unif}(0,1), W=X \cdot Y$, and $Z=\frac{X}{Y}$. Find the joint PDF of $(W, Z)$.
+	\item A point $(X, Y)$ is picked at random uniformly in the unit circle. Find the joint PDF of $R$ and $X$, where $R=\sqrt{X^{2}+Y^{2}}$.
+    \item A point $(X, Y, Z)$ is picked uniformly at random inside the unit ball of $\mathbb{R}^{3}$. Find the joint PDF of $Z$ and $R$, where $R=\sqrt{X^{2}+Y^{2}+Z^{2}}$.
+\end{enumerate}
+\subsection{Solution}
+(a)\\
+We're told that $X$ and $Y$ are independent random variables with a normal distribution with $\mu=0$ and $\sigma=1$. In other words, they both have a probability density function of:
+$$
+f_X(x)=\frac{1}{\sqrt{2 \pi}} e^{-x^2 / 2}
+$$
+
+Let's now look at the case where $Z=X / Y$. This produces the ratio distribution, which is derived as follows:
+
+Note that we set $x=y z$, and apply the Jacobian determinant due to this transform, which is $|y|$
+$$
+\begin{aligned}
+& p_Z(z)=\frac{1}{2 \pi} \int_{-\infty}^{\infty}|y| \exp \left(-\frac{(z y)^2}{2}\right) \exp \left(-\frac{y^2}{2}\right) d y \\
+& \quad=\frac{1}{2 \pi} \int_{-\infty}^{\infty}|y| \exp \left(-\frac{y^2\left(z^2+1\right)}{2}\right) d y
+\end{aligned}
+$$
+
+Using the known definite integral $\int_0^{\infty} x \exp \left(-c x^2\right) d x=\frac{1}{2 c}$ we get
+$$
+p_Z(z)=\frac{1}{\pi\left(z^2+1\right)}
+$$
+which is the Cauchy distribution.\\
+(b)\\
+To find the joint PDF of $(W, Z)$, we start with the joint PDF of $(X, Y)$, which is $f_{X,Y}(x,y) = 1$ for $0 < x < 1$ and $0 < y < 1$. We then use the transformation $W = X \cdot Y$ and $Z = \frac{X}{Y}$. The Jacobian determinant for this transformation is $|J| = \frac{1}{2z}$. Thus, the joint PDF is:
+\begin{center}
+$f_{W,Z}(w,z) = f_{X,Y}(x,y) \left| J \right| = \frac{1}{2z}$ for $0 < x < 1$, $0 < y < 1$, $w = xy$, and $z = \frac{x}{y}$.
+\end{center}
+
+(c)\\
+To find the joint PDF of $R$ and $X$, where $R = \sqrt{X^2 + Y^2}$, we use the transformation $X = R \cos \Theta$ and $Y = R \sin \Theta$. Assuming that $f_{X,Y}(x,y) = \frac{1}{a}$ where $a$ is a constant for $-1 \leq x \leq 1$ and $-1 \leq y \leq 1$, we have:
+\begin{center}
+$\int_{0}^{2\pi} \int_{0}^{1} f_{R,\Theta}(r,\theta) \, dr \, d\theta = 1 = \int_{0}^{2\pi} \int_{0}^{1} f_{X,Y}(x,y) r \, dr \, d\theta$
+\end{center}
+Solving for $a$, we find that $a = \pi$. Therefore, the joint PDF is:
+\begin{center}
+$f_{R,X}(r,x) = f(R=r, X=x) = f(R=r, \Theta=\arccos\frac{x}{r}) = \frac{r}{\pi}$ for $0 \leq r \leq 1$ and $-r \leq x \leq r$.
+\end{center}
+
+(d)\\
+To find the joint PDF of $Z$ and $R$, where $R = \sqrt{X^2 + Y^2 + Z^2}$, we use the transformation $X = R \sin M \cos \Theta$, $Y = R \sin M \sin \Theta$, and $Z = R \cos M$. The joint PDF of $(X, Y, Z)$ is $f_{X,Y,Z}(x,y,z) = \frac{1}{\frac{4\pi}{3}}$. Thus, we have:
+\begin{center}
+$f_{R,M}(r,m) = \int_{0}^{2\pi} f_{R,M,\Theta}(r,m,\theta) \, d\theta = \frac{3r^2 \sin(m)}{2}$
+\end{center}
+Therefore, the joint PDF of $R$ and $Z$ is:
+\begin{center}
+$f_{R,Z}(r,z) = f(R=r, Z=z) = f(R=r, M=\arcsin\sqrt{1-\frac{z^2}{r^2}}) = \frac{3r^2 \sqrt{1-\frac{z^2}{r^2}}}{2}$
+\end{center}
+for $0 \leq r \leq 1$ and $-r \leq z \leq r$.
+\end{homeworkProblem}
+
+
+\newpage
+\begin{homeworkProblem}[6] (\textbf{Optional Challenging Problem})\\
+Let $X$ and $Y$ be i.i.d. $\operatorname{Unif}(0,1)$, and $Z=\frac{X}{Y}$. Find the probability that the integer close to $Z$ is even.
+\subsection{Solution}
+If n is the integer nearest to Z, then \\
+$$
+n - 0.5 \leq Z \leq n + 0.5
+$$
+$$
+\frac{X}{n + 0.5} \leq Y \leq \frac{X}{n - 0.5}
+$$
+Given $0 < X < 1$, the probability that Y yields a valid even number $n = 2k$ is\\
+$$
+P(X,Y) = 2X \sum_{k=1}^{\infty} (\frac{1}{4k-1} - \frac{1}{4k+1}) = aX
+$$
+And the probability that the integer close to Z is even is\\
+$$
+P = \int_{0}^{1} P(X,Y) dX = \int_{0}^{1} aX dX = \frac{a}{2} = 2\sum_{k=1}^{+\infty} \frac{1}{16k^2-1} = 1 - \frac{\pi}{4}
+$$
+Now, we solve the probability to obtain 0 corresponding to the integer close to Z.\\
+$$
+P(0) = \int_{0}^{1/2} (1-2X) dX = 1/4
+$$
+Thus, the probability that the integer close to Z is even is $1 - \frac{\pi}{4} + 1/4 = \frac{5 - \pi}{4}$.
+\end{homeworkProblem}
+\end{document}
