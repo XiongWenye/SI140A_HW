@@ -1,0 +1,334 @@
+% !TeX TS-program = pdflatex
+
+
+\documentclass[a4paper]{article}
+
+% \usepackage[default]{fontsetup}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{tikz}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{fdsymbol}
+
+
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%  
+
+\topmargin=-0.2in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.5in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+		\node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Class
+%   - Due date
+%   - Name
+%   - Student ID
+
+\newcommand{\hmwkTitle}{Homework\ \#09}
+\newcommand{\hmwkClass}{Probability \& Statistics for EECS}
+\newcommand{\hmwkDueDate}{2024-12-10}
+\newcommand{\hmwkAuthorName}{}
+\newcommand{\hmwkAuthorID}{}
+
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\\  \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59}\\
+	\vspace{4in}
+}
+
+\author{
+	Name: \textbf{\hmwkAuthorName} \\
+	Student ID: \hmwkAuthorID}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+
+% \maketitle
+% \thispagestyle{empty}
+% \pagebreak
+
+\date{
+Due on Dec. 10, 2024, 11:59 UTC+8}
+\title{SI 140A-02  Probability \& Statistics for EECS, Fall 2024 \\
+Homework 9}
+\maketitle
+Read all the instructions below carefully before you start working on the assignment, and before you make a submission.
+\begin{itemize}
+    \item You are required to write down all the major steps towards making your conclusions; otherwise you may obtain limited points of the problem.
+    \item Write your homework in English; otherwise you will get no points of this homework.
+    \item Any form of plagiarism will lead to $0$ point of this homework. 
+\end{itemize}
+\newpage
+
+Note: for the programming assignment, you are required to submit the whole solution
+in the format of Jupyter Notebook (Formerly known as the IPython Notebook), including
+source codes, theory, algorithms, simulation result and analysis. Do NOT print the file or
+the source codes.
+
+\begin{homeworkProblem}[1]
+Use the methods of inverse transform sampling (or called the method of inverse CDF) to obtain samples from each of the following continuous distributions:
+\begin{enumerate}[(a)]
+	\item Logistic distribution with CDF $ F(x) = e^{x} / (1 + e^{x}), x \in {R}. $
+	\item Rayleigh distribution with CDF $ F(x) = 1 - e^{- x^{2} / 2}, x > 0. $
+	\item Exponential distribution with CDF $ F(x) = 1 - e^{- x}, x > 0. $
+\end{enumerate}
+After obtaining enough samples, please plot the corresponding histogram and corresponding theoretical PDF.
+
+\end{homeworkProblem}
+\newpage
+
+\begin{homeworkProblem}[2]
+Acceptance-Rejection Method
+\begin{enumerate}[(a)]
+    \item Use the Acceptance-Rejection Method to obtain samples from Beta distribution $\operatorname{Beta}(4,6).$
+
+    \item Use both the Box-Muller method and the Acceptance-Rejection Method to obtain samples from the standard Normal distribution $\mathcal{N} (0, 1)$, then discuss the pros and cons of each method.
+\end{enumerate}
+After obtaining enough samples, please plot the corresponding histogram and corresponding theoretical PDF.
+\end{homeworkProblem}
+
+\newpage
+\begin{homeworkProblem}[3]
+Monte Carlo Integration
+	
+\begin{enumerate}[(a)]
+	\item Evaluate the integration
+	\begin{equation*}
+		\int_{0}^{1} \frac{4}{1 + x^{2}} d x.
+	\end{equation*}
+	\item Evaluate the integration
+	\begin{equation*}
+		\int_{0}^{4} \sqrt{ x + \sqrt{ x + \sqrt{ x + \sqrt{x} } } } dx.
+	\end{equation*}
+	\item Evaluate the probability of rare event $ c = \mathbb{P}(Y > 8),$ where $ Y \sim \mathcal{N}(0, 1). $
+\end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+\begin{homeworkProblem}[4]
+    Use your own words to describe the geometric perspective of Jacobian Matrix and Jacobian Determinant.
+\subsection{Solution:}
+The Jacobian matrix of a vector-valued function represents the best linear approximation to the function at a given point. Geometrically, it describes how the function stretches, rotates, and shears the space around that point. Each entry in the Jacobian matrix corresponds to the partial derivative of one component of the function with respect to one of the input variables, indicating how sensitive that component is to changes in that variable.
+
+The Jacobian determinant provides a measure of how the function transforms volumes near a given point. Geometrically, it represents the factor by which the function scales volumes in the input space when mapping them to the output space. If the determinant is positive, the orientation of the space is preserved; if negative, the orientation is reversed. A determinant of zero indicates that the function compresses the space into a lower dimension at that point.
+
+In summary, the Jacobian matrix describes the local linear transformation properties of a function, while the Jacobian determinant quantifies the local volume scaling effect of that transformation.
+\end{homeworkProblem}
+
+\newpage
+\begin{homeworkProblem}[5]
+The PDF of Gamma distribution $\operatorname{Gamma}(a, \lambda)$ is:
+$$
+f(x)=\frac{1}{\Gamma(a)}(\lambda x)^{a} e^{-\lambda x} \frac{1}{x}, x>0,
+$$
+
+where $a>0, \lambda>0$, and $\Gamma(a)$ is the Gamma Function:
+
+$$
+\Gamma(a)=\int_{0}^{\infty} z^{a-1} e^{-z} d z.
+$$
+\begin{enumerate}[(a)]
+	\item If $X \sim \operatorname{Gamma}(a, \lambda)$, find $E(X)$ and $\operatorname{Var}(X)$.\\
+    \item  If $Y \sim \mathcal{N}(0,1)$, show that $Y^{2} \sim \operatorname{Gamma}\left(\frac{1}{2}, \frac{1}{2}\right)$.
+    \item If $V=Y_{1}^2+\ldots+Y_{n}^2$, where $Y_{i}, i=1, \ldots, n$ are i.i.d. random variables and $Y_{i} \sim \mathcal{N}(0,1)$, then $V$ satisfies chi-square distribution, i.e. $V \sim \chi_{n}^{2}$. Show that $V \sim \operatorname{Gamma}\left(\frac{n}{2}, \frac{1}{2}\right)$ and find the PDF of $V$.\\
+    \item If $Y$ and $V$ are independent, define random variable $Z$ as follows
+
+$$
+Z=\frac{Y}{\sqrt{\frac{V}{n}}} .
+$$
+
+    then $Z$ satisfies Student's t-distribution, i.e. $Z \sim t_{n}$. Please adopt the change of variable method to find the PDF of $Z$.\\
+    \item Given two independent random variables $V_{1}$ and $V_{2}$, where $V_{1} \sim \chi_{m}^{2}$ and $V_{2} \sim \chi_{n}^{2}$. Define random variable $W$ as follows
+
+$$
+W=\frac{\frac{V_{1}}{m}}{\frac{V_{2}}{n}} .
+$$
+
+then $W$ satisfies F -distribution, i.e. $W \sim F(m, n)$. Please adopt the change of variable method to find the PDF of $W$.\\
+\end{enumerate}
+\subsection{Solution:}
+(a):\\
+
+To find the expected value $E(X)$ and variance $\operatorname{Var}(X)$ of a Gamma distribution $X \sim \operatorname{Gamma}(a, \lambda)$, we use the properties of the Gamma function.
+
+The expected value is given by:
+$$E(X) = \int_0^\infty x \frac{1}{\Gamma(a)} (\lambda x)^a e^{-\lambda x} \frac{1}{x} dx = \frac{\Gamma(a+1)}{\lambda \Gamma(a)} = \frac{a}{\lambda}$$
+
+The second moment is:
+$$E(X^2) = \int_0^\infty x^2 \frac{1}{\Gamma(a)} (\lambda x)^a e^{-\lambda x} \frac{1}{x} dx = \frac{\Gamma(a+2)}{\lambda^2 \Gamma(a)} = \frac{a(a+1)}{\lambda^2}$$
+
+Thus, the variance is:
+$$\operatorname{Var}(X) = E(X^2) - (E(X))^2 = \frac{a(a+1)}{\lambda^2} - \left(\frac{a}{\lambda}\right)^2 = \frac{a}{\lambda^2}$$
+
+(b):\\
+
+To show that $Y^2 \sim \operatorname{Gamma}\left(\frac{1}{2}, \frac{1}{2}\right)$ for $Y \sim \mathcal{N}(0,1)$, we start with the PDF of the standard normal distribution:
+$$\int_{-\infty}^{\infty} f(x) dx = 1 = \int_{-\infty}^{\infty} \frac{1}{\sqrt{2\pi}} e^{-\frac{x^2}{2}} dx$$
+
+Using the change of variable $u = \frac{x^2}{2}$, we get:
+$$\frac{1}{\sqrt{2\pi}} \int_{0}^{\infty} \frac{1}{\sqrt{u}} e^{-u} du = \frac{1}{\sqrt{\pi}} \Gamma\left(\frac{1}{2}\right)$$
+
+Since $\Gamma\left(\frac{1}{2}\right) = \sqrt{\pi}$, we have:
+$$f(x) = \frac{1}{\sqrt{2\pi x}} e^{-\frac{x}{2}}$$
+
+This matches the PDF of the Gamma distribution $\operatorname{Gamma}\left(\frac{1}{2}, \frac{1}{2}\right)$:
+$$f_G(x) = \frac{1}{\Gamma\left(\frac{1}{2}\right)} \left(\frac{1}{2} x\right)^{\frac{1}{2} - 1} e^{-\frac{x}{2}} = \frac{1}{\sqrt{2\pi x}} e^{-\frac{x}{2}}$$
+
+Thus, $Y^2 \sim \operatorname{Gamma}\left(\frac{1}{2}, \frac{1}{2}\right)$.
+
+(c):\\
+
+To show that $V = Y_1^2 + \ldots + Y_n^2 \sim \operatorname{Gamma}\left(\frac{n}{2}, \frac{1}{2}\right)$, we use the property that the sum of independent Gamma random variables is also Gamma distributed.
+
+Assume $X \sim \operatorname{Gamma}(a, \lambda)$ and $Y \sim \operatorname{Gamma}(b, \lambda)$. Then $Z = X + Y$ has the PDF:
+$$f_Z(z) = \int_0^z f_X(x) f_Y(z-x) dx = \frac{e^{-z\lambda} \lambda^{a+b}}{\Gamma(a) \Gamma(b)} \int_0^z x^{a-1} (z-x)^{b-1} dx$$
+
+Using the Beta function identity, we get:
+$$f_Z(z) = \frac{\lambda^{a+b}}{\Gamma(a+b)} z^{a+b-1} e^{-z\lambda}$$
+
+Thus, $V = Y_1^2 + \ldots + Y_n^2 \sim \operatorname{Gamma}\left(\frac{n}{2}, \frac{1}{2}\right)$.
+
+(d):\\
+
+To find the PDF of $Z = \frac{Y}{\sqrt{\frac{V}{n}}}$ where $Y \sim \mathcal{N}(0,1)$ and $V \sim \chi_n^2$, we use the joint PDF of $Y$ and $V$:
+$$f_{Y,V}(y,v) = \frac{1}{\sqrt{2\pi}} e^{-\frac{y^2}{2}} \frac{1}{\Gamma\left(\frac{n}{2}\right)} \left(\frac{v}{2}\right)^{\frac{n}{2}-1} e^{-\frac{v}{2}}$$
+
+Using the change of variables and the Jacobian determinant $|J| = \frac{v}{n}$, we get:
+$$f_Z(z) = \int_0^\infty f_{Z,V}(z,v) dv = 2 \frac{1}{\sqrt{2\pi n}} \frac{1}{\Gamma\left(\frac{n}{2}\right)} \int_0^\infty e^{-\frac{z^2 v/n^2}{2}} \left(\frac{v}{2}\right)^{\frac{n-1}{2}} e^{-\frac{v}{2}} d\left(\frac{v}{2}\right)$$
+
+This simplifies to:
+$$f_Z(z) = \frac{\Gamma\left(\frac{n+1}{2}\right)}{\Gamma\left(\frac{n}{2}\right)} \frac{\left(1 + \frac{z^2}{n}\right)^{-\frac{n+1}{2}}}{\sqrt{\pi n}}$$
+
+(e):\\
+
+To find the PDF of $W = \frac{\frac{V_1}{m}}{\frac{V_2}{n}}$ where $V_1 \sim \chi_m^2$ and $V_2 \sim \chi_n^2$, we use the joint PDF and the Jacobian determinant $|J| = \frac{m}{n} z$:
+$$f_W(w) = \frac{\Gamma\left(\frac{m+n}{2}\right)}{\Gamma\left(\frac{m}{2}\right) \Gamma\left(\frac{n}{2}\right)} \left(\frac{m}{n}\right)^{\frac{m}{2}} w^{\frac{m}{2}-1} \left(1 + \frac{nw}{m}\right)^{-\frac{m+n}{2}}$$
+
+\end{homeworkProblem}
+
+
+\newpage
+\begin{homeworkProblem}[6] (\textbf{Optional Challenging Problem}). Given $n$ i.i.d. continuous random variables $X_{1}, \ldots, X_{n}$, where $X_{i} \sim F_{X}$. Define
+
+$$
+D_{n}=\sup _{x \in \mathbb{R}}\left|\hat{F}_{n}(x)-F_{X}(x)\right| .
+$$
+
+where
+
+$$
+\hat{F}_{n}(x)=\frac{1}{n} \sum_{j=1}^{n} I\left(X_{j} \leq x\right)
+$$
+\begin{enumerate}[(a)]
+    \item Find the CDF of $D_{n}$.
+    \item Find the limiting CDF of $\sqrt{n} D_{n}$ when $n \rightarrow \infty$.
+\end{enumerate}
+
+\end{homeworkProblem}
+\end{document}
