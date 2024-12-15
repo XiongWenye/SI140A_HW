@@ -171,6 +171,36 @@ $$
 \item Estimate $P(N=i)$, for $i=0,1,2,3$.
 \item Can you find the exact distribution of $N$ ?
 \end{enumerate}
+\subsection{Solution}
+(a), (b) and (c) can be solved by simulation. You can see the code in the appendix.\\
+% filepath: SI140A_02 Homework10.tex
+(d) We can find the exact distribution of $N$ as follows:
+
+Let's first transform the problem:
+\begin{align*}
+    N &= \max\{n: \prod_{i=1}^n U_i \geq e^{-1}\} \\
+    &= \max\{n: \sum_{i=1}^n \ln(U_i) \geq -1\}
+\end{align*}
+
+Key observations:
+\begin{itemize}
+    \item If $U \sim \text{Uniform}(0,1)$, then $-\ln(U) \sim \text{Exponential}(1)$
+    \item Let $Y_i = -\ln(U_i)$, then $Y_i \sim \text{Exponential}(1)$
+    \item Sum of exponential random variables follows Gamma distribution
+    \item $S_n = \sum_{i=1}^n Y_i \sim \text{Gamma}(n,1)$
+\end{itemize}
+
+Therefore:
+\begin{align*}
+    P(N = k) &= P(S_k \leq 1 \text{ and } S_{k+1} > 1) \\
+    &= P(S_k \leq 1) - P(S_{k+1} \leq 1) \\
+    &= \frac{\gamma(k,1)}{\Gamma(k)} - \frac{\gamma(k+1,1)}{\Gamma(k+1)}
+\end{align*}
+
+where $\gamma(k,1)$ is the lower incomplete gamma function and $\Gamma(k)$ is the gamma function.
+
+This gives us the exact probability mass function for $N$.
+
 \end{homeworkProblem}
 
 \newpage
@@ -194,7 +224,8 @@ $$
         \end{figure*}
     \end{enumerate}
 \end{homeworkProblem}
-
+\subsection{Solution}
+See the code in the appendix for the implementation of the above problem.\\
 \newpage
 
 \begin{homeworkProblem}[3]
@@ -204,7 +235,24 @@ $$
          \item Find $E\left(X_{1} \mid X_{1}<1997\right)$
          \item Find $E\left(X_{1}+X_{2}+X_{3} \mid X_{1}>1997, X_{2}>2014, X_{3}>2025\right)$ in terms of $\lambda_{1}, \lambda_{2}, \lambda_{3}$.
      \end{enumerate}
-         
+
+     \subsection{Solution}
+     (a)\\
+     According to the memoryless property of exponential distribution, we have
+     \begin{center}
+            $E\left(X_{1} \mid X_{1}>2024\right) = 2024 + E\left(X_{1} - 2024 \mid X_1 > 2024\right) = 2024 + E\left(X_{1}\right) = 2024 + \frac{1}{\lambda_1}$
+     \end{center}
+    (b)\\
+    Similarly, we have
+    \begin{center}
+        $E\left(X_{1} \mid X_{1}<1997\right) = 1997 - E\left(1997 - X_{1} \mid X_1 < 1997\right) = 1997 - E\left(X_{1}\right) = 1997 - \frac{1}{\lambda_1}$
+    \end{center}
+    (c)\\
+    Since $X_1, X_2, X_3$ are independent, we have
+    \begin{center}
+        $E\left(X_{1}+X_{2}+X_{3} \mid X_{1}>1997, X_{2}>2014, X_{3}>2025\right) = E\left(X_{1} \mid X_{1}>1997\right) + E\left(X_{2} \mid X_{2}>2014\right) + E\left(X_{3} \mid X_{3}>2025\right)$\\
+        $= \frac{1}{\lambda_1} + \frac{1}{\lambda_2} + \frac{1}{\lambda_3} + 1997 + 2014 + 2025 = 6036 + \frac{1}{\lambda_1} + \frac{1}{\lambda_2} + \frac{1}{\lambda_3}$
+    \end{center}
 \end{homeworkProblem}
 
 \newpage
@@ -220,6 +268,86 @@ $$
         \item Find $E[X \mid Y=y]$ and $\operatorname{Var}[X \mid Y=y]$ for $0 \leq y \leq 1$.
         \item Find $E[X \mid Y]$ and $\operatorname{Var}[X \mid Y]$.
     \end{enumerate}
+
+\subsection{Solution}
+(a) The supports of $X$ and $Y$ are both [0,1]. In this way, we have
+
+and
+
+$$\begin{aligned}f_{X}(x)&=\:\int_{-\infty}^{\infty}f_{X,Y}(x,y)dy\\&=\:\int_{0}^{\sqrt{x}}6xydy\\&=\:3xy^{2}\bigg|_{y=0}^{y=\sqrt{x}}\\&=\:3x^{2},\end{aligned}$$
+$$\begin{aligned}f_{Y}(y)&=\:\int_{-\infty}^{\infty}f_{X,Y}(x,y)dx\\&=\:\int_{y^{2}}^{1}6xydx\\&=\:3yx^{2}\Big|_{x=y^{2}}^{x=1}\\&=\:3y-3y^{5}.\end{aligned}$$
+$$\begin{aligned}&f_{X}(x)=\:\begin{cases}3x^2&\text{if }0\leq x\leq1,\\0&\text{otherwise.}\end{cases}\\&f_{Y}(y)=\:\begin{cases}3y-3y^5&\text{if }0\leq y\leq1,\\0&\text{otherwise.}\end{cases}\end{aligned}$$
+Since $f_{X,Y}(x,y)\neq f_{X}(x)f_{Y}(y),X$ and $Y$ are not independent.
+
+Therefore,
+
+$$E[X|Y=y]=\int_{-\infty}^{\infty}xf_{X|Y}(x|y)dx,$$
+
+to calculate $E[X|Y=y]$, we need to first calculate $f_X|Y(x|y).$
+
+If $y^2\leq x\leq1$,
+
+$$f_{X|Y}(x|y)=\frac{f_{X,Y}(x,y)}{f_Y(y)}=\frac{2x}{1-y^4}.$$
+
+In this way,
+
+$$f_{X|Y}(x|y)=\begin{cases}\frac{2x}{1-y^4}&\text{if}y^2\le x\le1,\\0&\text{otherwise.}\end{cases}$$
+
+(b) Since
+
+$$E[X|Y=y]=\int_{-\infty}^{\infty}xf_{X|Y}(x|y)dx,$$
+
+to calculate $E[X|Y=y]$, we need to first calculate $f_X|Y(x|y).$
+
+If $y^2\leq x\leq1$,
+
+$$f_{X|Y}(x|y)=\frac{f_{X,Y}(x,y)}{f_Y(y)}=\frac{2x}{1-y^4}.$$
+
+In this way,
+
+$$f_{X|Y}(x|y)=\begin{cases}\frac{2x}{1-y^4}&\text{if}y^2\le x\le1,\\0&\text{otherwise.}\end{cases}$$\\
+
+Therefore,
+$$
+\begin{aligned}
+E[X \mid Y=y] & =\int_{-\infty}^{\infty} x f_{X \mid Y}(x \mid y) d x \\
+& =\int_{y^2}^1 x \frac{2 x}{1-y^4} d x \\
+& =\left.\frac{2}{3\left(1-y^4\right)} x^3\right|_{x=y^2} ^{x=1} \\
+& =\frac{2\left(1-y^6\right)}{3\left(1-y^4\right)} \\
+& =\frac{2}{3} \cdot \frac{1+y^2+y^4}{1+y^2}
+\end{aligned}
+$$
+
+Since
+$$
+\operatorname{Var}[X \mid Y=y]=E\left[X^2 \mid Y=y\right]-(E[X \mid Y=y])^2
+$$
+to calculate $\operatorname{Var}[X \mid Y=y]$, we need to first calculate $E\left[X^2 \mid Y=y\right]$.
+Since
+$$
+\begin{aligned}
+E\left[X^2 \mid Y=y\right] & =\int_{-\infty}^{\infty} x^2 f_{X \mid Y}(x \mid y) d x \\
+& =\int_{y^2}^1 x^2 \frac{2 x}{1-y^4} d x \\
+& =\left.\frac{1}{2\left(1-y^4\right)} x^4\right|_{x=y^2} ^{x=1} \\
+& =\frac{1-y^8}{2\left(1-y^4\right)} \\
+& =\frac{1+y^4}{2}
+\end{aligned}
+$$
+we have,
+$$
+\begin{aligned}
+\operatorname{Var}[X \mid Y=y] & =E\left[X^2 \mid Y=y\right]-(E[X \mid Y=y])^2 \\
+& =\frac{1+y^4}{2}-\left(\frac{2\left(1-y^6\right)}{3\left(1-y^4\right)}\right)^2 \\
+& =\frac{1+y^4}{2}-\frac{4}{9} \cdot \frac{\left(1+y^2+y^4\right)^2}{\left(1+y^2\right)^2}
+\end{aligned}
+$$
+(c) According to the result in question(b), we have
+$$
+\begin{aligned}
+& E[X \mid Y]=\frac{2}{3} \cdot \frac{1+Y^2+Y^4}{1+Y^2} \\
+& \operatorname{Var}[X \mid Y]=\frac{1+Y^4}{2}-\frac{4}{9} \cdot \frac{\left(1+Y^2+Y^4\right)^2}{\left(1+Y^2\right)^2}
+\end{aligned}
+$$
 \end{homeworkProblem}
 
 \newpage
@@ -231,7 +359,36 @@ $$
         \item Let $X$ and $Y$ be i.i.d. discrete r.v.s. Show that $P(X=Y) \geq 2^{-H(X)}$.
     \end{enumerate}
 \end{homeworkProblem}
+\subsection{Solution}
+(a)\\ The PMF of $X$ is $P(X=k)=p(1-p)^k$ since there is $X \sim \operatorname{Geom}(p)$. Thus we have
+$$
+\begin{aligned}
+H(X) & =-\sum_{k=0}^{\infty} p(1-p)^k \log _2\left(p(1-p)^k\right) \\
+& =-p \sum_{k=0}^{\infty} k(1-p)^k \log _2(1-p)-p \log _2 p \sum_{k=0}^{\infty}(1-p)^k \\
+& =-\log _2 p-\frac{1-p}{p} \log _2(1-p)
+\end{aligned}
+$$\\
+(b)\\ Since $X$ and $Y$ are i.i.d random variables, via LOTP, we have
+$$
+\begin{aligned}
+P(X=Y) & =\sum_{k=0}^{\infty} P(X=Y \mid Y=k) \cdot P(Y=k) \\
+& =\sum_{k=0}^{\infty} P(X=k) \cdot P(Y=k)=\sum_{k=0}^{\infty} p_k^2
+\end{aligned}
+$$
 
+Denote $Z$ as a new discrete random variable such that $P\left(Z=p_k\right)=p_k$, then we have:
+$$
+E(Z)=\sum_{k=0}^{\infty} p_k \times p_k=P(X=Y)
+$$
+
+Since $\log (\cdot)$ is a convex function, according to Jensen's inequality, we have $E(\log (Z)) \leq \log (E(Z))$, thus there is
+$$
+\begin{aligned}
+& \sum p_k \log _2 p_k \leq \log _2 \sum p_k^2 \\
+\Leftrightarrow & -H(X) \leq \log _2 P(X=Y) \\
+\Leftrightarrow & P(X=Y) \geq 2^{-H(X)}
+\end{aligned}
+$$
 \newpage
 \begin{homeworkProblem}[6]
     Instead of predicting a single value for the parameter, we give an interval that is likely to contain the parameter: A $1-\delta$ confidence interval for a parameter $p$ is an interval $[\hat{p}-\epsilon, \hat{p}+\epsilon]$ such that ${Pr}(p \in[\hat{p}-\epsilon, \hat{p}+\epsilon]) \geq 1-\delta$. Now we toss a coin with probability $p$ landing heads and probability $1-p$ landing tails. The parameter $p$ is unknown and we need to estimate its value from experiment results. We toss such coin $N$ times. Let $X_{i}=1$ if the $i$ th result is head, otherwise 0 . We estimate $p$ by using
@@ -246,6 +403,35 @@ Find the $1-\delta$ confidence interval for $p$, then discuss the impacts of $\d
     \item Method 2: Adopt Hoeffding bound to find the $1-\delta$ confidence interval for $p$, then discuss the impacts of $\delta$ and $N$.
     \item Discuss the pros and cons of the above two methods.
 \end{enumerate}
+\subsection{Solution}
+Since $X_i \sim \operatorname{Bern}(p), X_i \in\{0,1\}$, we have $\mathbb{E}\left[X_i\right]=p$ and $\mathbb{V}\left[X_i\right]=p(1-p)$. Therefore, we have
+$$
+\mathbb{E}[\hat{p}]=p, \mathbb{V}[\hat{p}]=\frac{p(1-p)}{N}
+$$
+
+Besides, we know that
+$$
+P(p \in[\hat{p}-\varepsilon, \hat{p}+\varepsilon]) \geq 1-\delta \Leftrightarrow P(|\hat{p}-p| \geq \varepsilon) \leq \delta
+$$\\
+(a)\\ Applying Chebyshev's inequality on random variable $\hat{p}$, we have
+$$
+P(|\hat{p}-p| \geq \epsilon) \leq \frac{p(1-p)}{N \epsilon^2} \Rightarrow \delta=\frac{p(1-p)}{N \epsilon^2}, \epsilon=\sqrt{\frac{p(1-p)}{N \delta}}
+$$
+
+Therefore, we know that $\delta$ negatively correlates with $\epsilon$, i.e., given a fixed number of samples $N$, there is natural trade-off between accuracy and confidence. Besides, 1) Fix the confidence interval parametrized by $\delta$, reducing the estimation error $\epsilon$ requires increasing the number of samples $N$. 2) Fix the estimation error $\epsilon$, narrowing the confidence interval requires increasing the number of samples $N$. That is, the impacts of $N$ is on both the "estimation accuracy" and "estimation confidence".
+\\(b)\\ Applying Hoeffding's inequality on random variable $\hat{p}$, we have
+$$
+P(|\hat{p}-p| \geq \epsilon) \leq 2 e^{-2 N \epsilon^2} \Rightarrow \delta=2 e^{-2 N \epsilon^2}, \epsilon=\sqrt{\frac{\ln (2 / \delta)}{2 N}}
+$$
+
+The effects of $\delta$ and $N$ are similarly discussed as in (a).
+\\(c)\\ Chebyshev's inequality \\
+- Pros: 1) sharp bound and cannot be improved in general. 2) can be improved with extra distributional information on polynomial moments.\\
+- Cons: 1) requires the existence of moments until the second order. 2) quadratic convergence rate.
+
+Hoeffding's inequality\\
+- Pros: 1) exponential convergence rate. 2) does not require assumption on moments.\\
+- Cons: 1) works only for sub-Gaussian . 2) in general not sharp when the variance is small.
 \end{homeworkProblem}
 
 \newpage
