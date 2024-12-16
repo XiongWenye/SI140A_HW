@@ -194,10 +194,10 @@ Therefore:
 \begin{align*}
     P(N = k) &= P(S_k \leq 1 \text{ and } S_{k+1} > 1) \\
     &= P(S_k \leq 1) - P(S_{k+1} \leq 1) \\
-    &= \frac{\gamma(k,1)}{\Gamma(k)} - \frac{\gamma(k+1,1)}{\Gamma(k+1)}
+    &= \frac{\gamma(1, k)}{\Gamma(k)} - \frac{\gamma(1, k+1)}{\Gamma(k+1)}
 \end{align*}
 
-where $\gamma(k,1)$ is the lower incomplete gamma function and $\Gamma(k)$ is the gamma function.
+where $\gamma(1, k)$ is the lower incomplete gamma function and $\Gamma(k)$ is the gamma function.
 
 This gives us the exact probability mass function for $N$.
 
@@ -354,41 +354,46 @@ $$
 
 \begin{homeworkProblem}[5]
     Let $X$ be a discrete r.v. whose distinct possible values are $x_{0}, x_{1}, \ldots$, and let $p_{k}=$ $P\left(X=x_{k}\right)$. The entropy of $X$ is $H(X)=\sum_{k=0}^{\infty} p_{k} \log _{2}\left(1 / p_{k}\right)$.
-    \begin{enumerate}[(a)]
-        \item Find $H(X)$ for $X \sim \operatorname{Geom}(p)$.
-        \item Let $X$ and $Y$ be i.i.d. discrete r.v.s. Show that $P(X=Y) \geq 2^{-H(X)}$.
-    \end{enumerate}
+        \begin{enumerate}[(a)]
+            \item Find $H(X)$ for $X \sim \operatorname{Geom}(p)$.
+            \item Let $X$ and $Y$ be i.i.d. discrete r.v.s. Show that $P(X=Y) \geq 2^{-H(X)}$.
+        \end{enumerate}
+        \subsection{Solution}
+        (a)\\ 
+        The PMF of $X$ is $P(X=k)=p(1-p)^k$ since $X \sim \operatorname{Geom}(p)$. Thus we have
+        $$
+        \begin{aligned}
+        H(X) & =-\sum_{k=0}^{\infty} p(1-p)^k \log _2\left(p(1-p)^k\right) \\
+        & =-p \sum_{k=0}^{\infty} (1-p)^k \log _2(1-p)^k - p \sum_{k=0}^{\infty} (1-p)^k \log _2 p \\
+        & =-p \log _2(1-p) \sum_{k=0}^{\infty} k(1-p)^k - p \log _2 p \sum_{k=0}^{\infty} (1-p)^k \\
+        & =-\log _2 p - \frac{1-p}{p} \log _2(1-p)
+        \end{aligned}
+        $$\\
+        (b)\\ 
+        Since $X$ and $Y$ are i.i.d random variables, via LOTP, we have
+        $$
+        \begin{aligned}
+        P(X=Y) & =\sum_{k=0}^{\infty} P(X=Y \mid Y=k) \cdot P(Y=k) \\
+        & =\sum_{k=0}^{\infty} P(X=k) \cdot P(Y=k) \\
+        & =\sum_{k=0}^{\infty} p_k^2
+        \end{aligned}
+        $$
+        
+        Denote $Z$ as a new discrete random variable such that $P\left(Z=p_k\right)=p_k$, then we have:
+        $$
+        E(Z)=\sum_{k=0}^{\infty} p_k \times p_k=P(X=Y)
+        $$
+        
+        Since $\log (\cdot)$ is a convex function, according to Jensen's inequality, we have $E(\log (Z)) \leq \log (E(Z))$, thus there is
+        $$
+        \begin{aligned}
+        & \sum p_k \log _2 p_k \leq \log _2 \sum p_k^2 \\
+        \Leftrightarrow & -H(X) \leq \log _2 P(X=Y) \\
+        \Leftrightarrow & P(X=Y) \geq 2^{-H(X)}
+        \end{aligned}
+        $$
 \end{homeworkProblem}
-\subsection{Solution}
-(a)\\ The PMF of $X$ is $P(X=k)=p(1-p)^k$ since there is $X \sim \operatorname{Geom}(p)$. Thus we have
-$$
-\begin{aligned}
-H(X) & =-\sum_{k=0}^{\infty} p(1-p)^k \log _2\left(p(1-p)^k\right) \\
-& =-p \sum_{k=0}^{\infty} k(1-p)^k \log _2(1-p)-p \log _2 p \sum_{k=0}^{\infty}(1-p)^k \\
-& =-\log _2 p-\frac{1-p}{p} \log _2(1-p)
-\end{aligned}
-$$\\
-(b)\\ Since $X$ and $Y$ are i.i.d random variables, via LOTP, we have
-$$
-\begin{aligned}
-P(X=Y) & =\sum_{k=0}^{\infty} P(X=Y \mid Y=k) \cdot P(Y=k) \\
-& =\sum_{k=0}^{\infty} P(X=k) \cdot P(Y=k)=\sum_{k=0}^{\infty} p_k^2
-\end{aligned}
-$$
 
-Denote $Z$ as a new discrete random variable such that $P\left(Z=p_k\right)=p_k$, then we have:
-$$
-E(Z)=\sum_{k=0}^{\infty} p_k \times p_k=P(X=Y)
-$$
-
-Since $\log (\cdot)$ is a convex function, according to Jensen's inequality, we have $E(\log (Z)) \leq \log (E(Z))$, thus there is
-$$
-\begin{aligned}
-& \sum p_k \log _2 p_k \leq \log _2 \sum p_k^2 \\
-\Leftrightarrow & -H(X) \leq \log _2 P(X=Y) \\
-\Leftrightarrow & P(X=Y) \geq 2^{-H(X)}
-\end{aligned}
-$$
 \newpage
 \begin{homeworkProblem}[6]
     Instead of predicting a single value for the parameter, we give an interval that is likely to contain the parameter: A $1-\delta$ confidence interval for a parameter $p$ is an interval $[\hat{p}-\epsilon, \hat{p}+\epsilon]$ such that ${Pr}(p \in[\hat{p}-\epsilon, \hat{p}+\epsilon]) \geq 1-\delta$. Now we toss a coin with probability $p$ landing heads and probability $1-p$ landing tails. The parameter $p$ is unknown and we need to estimate its value from experiment results. We toss such coin $N$ times. Let $X_{i}=1$ if the $i$ th result is head, otherwise 0 . We estimate $p$ by using
@@ -404,34 +409,57 @@ Find the $1-\delta$ confidence interval for $p$, then discuss the impacts of $\d
     \item Discuss the pros and cons of the above two methods.
 \end{enumerate}
 \subsection{Solution}
-Since $X_i \sim \operatorname{Bern}(p), X_i \in\{0,1\}$, we have $\mathbb{E}\left[X_i\right]=p$ and $\mathbb{V}\left[X_i\right]=p(1-p)$. Therefore, we have
+Since $X_i \sim \operatorname{Bern}(p)$, where $X_i \in \{0,1\}$, we have $\mathbb{E}[X_i] = p$ and $\mathbb{V}[X_i] = p(1-p)$. Therefore, we have:
 $$
-\mathbb{E}[\hat{p}]=p, \mathbb{V}[\hat{p}]=\frac{p(1-p)}{N}
-$$
-
-Besides, we know that
-$$
-P(p \in[\hat{p}-\varepsilon, \hat{p}+\varepsilon]) \geq 1-\delta \Leftrightarrow P(|\hat{p}-p| \geq \varepsilon) \leq \delta
-$$\\
-(a)\\ Applying Chebyshev's inequality on random variable $\hat{p}$, we have
-$$
-P(|\hat{p}-p| \geq \epsilon) \leq \frac{p(1-p)}{N \epsilon^2} \Rightarrow \delta=\frac{p(1-p)}{N \epsilon^2}, \epsilon=\sqrt{\frac{p(1-p)}{N \delta}}
+\mathbb{E}[\hat{p}] = p, \quad \mathbb{V}[\hat{p}] = \frac{p(1-p)}{N}
 $$
 
-Therefore, we know that $\delta$ negatively correlates with $\epsilon$, i.e., given a fixed number of samples $N$, there is natural trade-off between accuracy and confidence. Besides, 1) Fix the confidence interval parametrized by $\delta$, reducing the estimation error $\epsilon$ requires increasing the number of samples $N$. 2) Fix the estimation error $\epsilon$, narrowing the confidence interval requires increasing the number of samples $N$. That is, the impacts of $N$ is on both the "estimation accuracy" and "estimation confidence".
-\\(b)\\ Applying Hoeffding's inequality on random variable $\hat{p}$, we have
+We need to find the interval $[\hat{p} - \epsilon, \hat{p} + \epsilon]$ such that:
 $$
-P(|\hat{p}-p| \geq \epsilon) \leq 2 e^{-2 N \epsilon^2} \Rightarrow \delta=2 e^{-2 N \epsilon^2}, \epsilon=\sqrt{\frac{\ln (2 / \delta)}{2 N}}
+P(p \in [\hat{p} - \epsilon, \hat{p} + \epsilon]) \geq 1 - \delta \quad \Leftrightarrow \quad P(|\hat{p} - p| \geq \epsilon) \leq \delta
 $$
 
-The effects of $\delta$ and $N$ are similarly discussed as in (a).
-\\(c)\\ Chebyshev's inequality \\
-- Pros: 1) sharp bound and cannot be improved in general. 2) can be improved with extra distributional information on polynomial moments.\\
-- Cons: 1) requires the existence of moments until the second order. 2) quadratic convergence rate.
+(a) Using Chebyshev's inequality on the random variable $\hat{p}$, we get:
+$$
+P(|\hat{p} - p| \geq \epsilon) \leq \frac{p(1-p)}{N \epsilon^2}
+$$
+Setting the right-hand side equal to $\delta$, we have:
+$$
+\delta = \frac{p(1-p)}{N \epsilon^2} \quad \Rightarrow \quad \epsilon = \sqrt{\frac{p(1-p)}{N \delta}}
+$$
 
-Hoeffding's inequality\\
-- Pros: 1) exponential convergence rate. 2) does not require assumption on moments.\\
-- Cons: 1) works only for sub-Gaussian . 2) in general not sharp when the variance is small.
+Thus, $\delta$ negatively correlates with $\epsilon$. Given a fixed number of samples $N$, there is a trade-off between accuracy and confidence. Specifically:
+1. Fixing the confidence interval (parametrized by $\delta$), reducing the estimation error $\epsilon$ requires increasing the number of samples $N$.
+2. Fixing the estimation error $\epsilon$, narrowing the confidence interval requires increasing the number of samples $N$.
+
+(b) Using Hoeffding's inequality on the random variable $\hat{p}$, we get:
+$$
+P(|\hat{p} - p| \geq \epsilon) \leq 2 e^{-2 N \epsilon^2}
+$$
+Setting the right-hand side equal to $\delta$, we have:
+$$
+\delta = 2 e^{-2 N \epsilon^2} \quad \Rightarrow \quad \epsilon = \sqrt{\frac{\ln(2 / \delta)}{2 N}}
+$$
+
+The effects of $\delta$ and $N$ are similar to those discussed in (a).
+
+(c) Comparison of the two methods:
+
+Chebyshev's Inequality:
+- Pros: 
+    1. Provides a general bound that is sharp and cannot be improved in general.
+    2. Can be improved with additional distributional information on polynomial moments.
+- Cons:
+    1. Requires the existence of moments up to the second order.
+    2. Has a quadratic convergence rate.
+
+Hoeffding's Inequality:
+- Pros:
+    1. Provides an exponential convergence rate.
+    2. Does not require assumptions on moments.
+- Cons:
+    1. Works only for sub-Gaussian distributions.
+    2. Generally not sharp when the variance is small.
 \end{homeworkProblem}
 
 \newpage
