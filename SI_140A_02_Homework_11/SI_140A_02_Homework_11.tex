@@ -325,21 +325,20 @@ Show the following orthogonality properties of MMSE:
 
     \item Since $E[(Y-g(X)) \phi(X)]=0, \forall \phi(\cdot)$, we have
     $$
-    E[(Y-g(X)) \phi(X)]=E[Y \phi(X)]-E[g(X) \phi(X)]=0
+    E[(Y- E(Y|X) + E(Y|X) - g(X)) \phi(X)]=0
     $$
     Therefore, we have
     $$
-    E[Y \phi(X)]=E[g(X) \phi(X)]
+    E[(Y- E(Y|X)) \phi(X)] + E[(E(Y|X) - g(X)) \phi(X)]=0
     $$
-    Since $\phi(X)$ is arbitrary, we can choose $\phi(X)=1$, then we have
+    According to the result of part (a), we have
     $$
-    E[Y]=E[g(X)]
+    E[(E(Y|X) - g(X)) \phi(X)]=0
     $$
-    Therefore, we have
+    Since $\phi(\cdot)$ is arbitrary, we have
     $$
-    E[Y]=E[g(X)]=E[E[Y|X]]
+    E(Y|X) = g(X)
     $$
-    Therefore, we have $g(X)=E(Y \mid X)$.
 \end{enumerate}
 \end{homeworkProblem}
 
